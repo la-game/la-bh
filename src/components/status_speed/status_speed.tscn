@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb3ppamhukbxp"]
+
+[ext_resource type="Script" path="res://src/components/status_speed/status_speed.gd" id="1_8l6vf"]
+
+[node name="StatusSpeed" type="Node"]
+script = ExtResource("1_8l6vf")

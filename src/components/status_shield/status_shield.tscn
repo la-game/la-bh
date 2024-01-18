@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvcvaqfmcjunp"]
+
+[ext_resource type="Script" path="res://src/components/status_shield/status_shield.gd" id="1_rw1xb"]
+
+[node name="StatusShield" type="Node"]
+script = ExtResource("1_rw1xb")

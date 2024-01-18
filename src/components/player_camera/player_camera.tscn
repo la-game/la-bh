@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://du80x6s871mn0"]
+
+[ext_resource type="Script" path="res://src/components/player_camera/player_camera.gd" id="1_akiav"]
+
+[node name="PlayerCamera" type="Camera2D"]
+enabled = false
+script = ExtResource("1_akiav")
