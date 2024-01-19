@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjm4xmfes10cs"]
+
+[ext_resource type="Script" path="res://src/screen/lobby/players_list/players_list.gd" id="1_qer8q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53f2p"]
+bg_color = Color(0.184314, 0.184314, 0.184314, 1)
+border_width_left = 4
+border_color = Color(0.184314, 0.184314, 0.184314, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ly0tt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gq5kv"]
+bg_color = Color(0.239216, 0.239216, 0.239216, 1)
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+
+[node name="PlayersList" type="VBoxContainer" node_paths=PackedStringArray("others", "name_edit")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qer8q")
+others = NodePath("Others")
+name_edit = NodePath("HBoxContainer/NameEdit")
+
+[node name="Others" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+
+[node name="NameEdit" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_53f2p")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ly0tt")
+text = "1"
+
+[node name="Identifier" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/disabled = SubResource("StyleBoxFlat_gq5kv")
+disabled = true
+text = "#1"
+
+[connection signal="text_changed" from="HBoxContainer/NameEdit" to="." method="_on_name_edit_text_changed"]

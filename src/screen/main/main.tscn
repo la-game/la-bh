@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://f1dpotqg6x4l"]
+
+[ext_resource type="Script" path="res://src/screen/main/main.gd" id="1_are7o"]
+[ext_resource type="PackedScene" uid="uid://chbwcanmqg4rq" path="res://src/screen/main/join_window/join_window.tscn" id="1_yravo"]
+[ext_resource type="PackedScene" uid="uid://bacfjou6v2xyq" path="res://src/screen/main/host_window/host_window.tscn" id="3_f4706"]
+
+[node name="Main" type="MarginContainer" node_paths=PackedStringArray("host_window", "join_window")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_are7o")
+host_window = NodePath("HostWindow")
+join_window = NodePath("JoinWindow")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Host" type="Button" parent="CenterContainer/GridContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="CenterContainer/GridContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="HostWindow" parent="." instance=ExtResource("3_f4706")]
+visible = false
+
+[node name="JoinWindow" parent="." instance=ExtResource("1_yravo")]
+visible = false
+
+[connection signal="pressed" from="CenterContainer/GridContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CenterContainer/GridContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="hosting" from="HostWindow" to="." method="_on_host_window_hosting"]
+[connection signal="connected" from="JoinWindow" to="." method="_on_join_window_connected"]

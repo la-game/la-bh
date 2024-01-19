@@ -5,7 +5,7 @@ extends Node
 
 @export var player: CharacterBody2D
 
-#@export var speed: PlayerSpeed
+@export var speed: StatusSpeed
 
 
 func _physics_process(_delta: float) -> void:
@@ -16,5 +16,5 @@ func _physics_process(_delta: float) -> void:
 	if direction.length() > 1.0:
 		direction = direction.normalized()
 	
-	player.velocity = direction # TODO: * speed.current
+	player.velocity = direction * speed.value
 	player.move_and_slide()

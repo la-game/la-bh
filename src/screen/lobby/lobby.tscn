@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://oed6mfgj7mb7"]
+
+[ext_resource type="Script" path="res://src/screen/lobby/lobby.gd" id="1_5ayha"]
+[ext_resource type="PackedScene" uid="uid://cjm4xmfes10cs" path="res://src/screen/lobby/players_list/players_list.tscn" id="2_otrtt"]
+
+[node name="Lobby" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_5ayha")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PlayersList" parent="HBoxContainer" instance=ExtResource("2_otrtt")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="HBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Play"
+
+[connection signal="pressed" from="HBoxContainer/GridContainer/Play" to="." method="_on_play_pressed"]
