@@ -3,12 +3,18 @@ class_name PlayerMovement
 extends Node
 
 
-@export var player: CharacterBody2D
+@export var player: Player
 
 @export var speed: StatusSpeed
 
 
 func _physics_process(_delta: float) -> void:
+	if not player:
+		return
+	
+	if not is_multiplayer_authority():
+		return
+	
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
 	# While keyboard always give 0 or 1 for the axis, joysticks can give any value between 0 and 1.

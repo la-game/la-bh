@@ -4,3 +4,5 @@
 
 [node name="StatusHealth" type="Node"]
 script = ExtResource("1_a32jt")
+max_value = 100.0
+value = 100.0

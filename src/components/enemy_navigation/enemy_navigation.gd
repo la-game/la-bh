@@ -5,7 +5,7 @@ extends NavigationAgent2D
 
 @export var enemy: CharacterBody2D
 
-@export var player: CharacterBody2D
+@export var player: Player
 
 
 func _ready() -> void:

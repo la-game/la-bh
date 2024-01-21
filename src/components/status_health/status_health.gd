@@ -8,8 +8,6 @@ signal reached_zero
 
 @export var health_bar: TextureProgressBar
 
-@export var shields: Array #
-
 @export var max_value: float:
 	set(v):
 		if health_bar:

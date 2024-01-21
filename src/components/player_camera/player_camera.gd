@@ -3,5 +3,5 @@ class_name PlayerCamera
 extends Camera2D
 
 
-func _ready() -> void:
+func _physics_process(_delta: float) -> void:
 	enabled = is_multiplayer_authority()
