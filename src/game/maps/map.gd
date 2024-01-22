@@ -1,4 +1,4 @@
-## Base for all maps.
+## Base class for maps.
 class_name Map
 extends Node2D
 

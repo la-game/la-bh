@@ -8,3 +8,5 @@ extends CharacterBody2D
 @export var speed: StatusSpeed
 
 @export var attack: StatusAttack
+
+@export var aim: PlayerAim

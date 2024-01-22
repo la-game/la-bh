@@ -1,16 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://1wtwkvoqrufg"]
+[gd_scene load_steps=4 format=3 uid="uid://1wtwkvoqrufg"]
 
 [ext_resource type="Texture2D" uid="uid://ettk6e82k7fv" path="res://assets/bow.tres" id="1_a4mw6"]
+[ext_resource type="Script" path="res://src/game/weapons/bow/bow.gd" id="1_cvuk1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uiqp"]
-size = Vector2(60, 20)
+size = Vector2(20, 60)
 
 [node name="Bow" type="Area2D"]
+script = ExtResource("1_cvuk1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(30, 0)
+rotation = 1.57079
 texture = ExtResource("1_a4mw6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(30, 0)
 shape = SubResource("RectangleShape2D_8uiqp")
 
 [node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

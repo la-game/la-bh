@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://lnatwswf7kfw"]
+[gd_scene load_steps=20 format=3 uid="uid://lnatwswf7kfw"]
 
 [ext_resource type="PackedScene" uid="uid://dpivq7t6c8f87" path="res://src/components/status_health/status_health.tscn" id="1_5l3pl"]
 [ext_resource type="Script" path="res://src/game/player/player.gd" id="1_6ls87"]
@@ -9,17 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://dre2m6br1ehrq" path="res://src/components/player_aim/player_aim.tscn" id="4_o12vi"]
 [ext_resource type="PackedScene" uid="uid://bgyu827rfph6j" path="res://src/components/hitbox/hitbox.tscn" id="5_gjx5p"]
 [ext_resource type="PackedScene" uid="uid://du80x6s871mn0" path="res://src/components/player_camera/player_camera.tscn" id="6_22abn"]
+[ext_resource type="PackedScene" uid="uid://1wtwkvoqrufg" path="res://src/game/weapons/bow/bow.tscn" id="10_31isi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75ms6"]
 radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x7i0n"]
 radius = 16.0
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vxww1"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_hjpoe"]
 offsets = PackedFloat32Array(0)
@@ -48,16 +44,22 @@ gradient = SubResource("Gradient_oshs1")
 width = 48
 height = 8
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack")]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vxww1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "aim")]
 collision_layer = 2
 script = ExtResource("1_6ls87")
 health = NodePath("StatusHealth")
 speed = NodePath("StatusSpeed")
 attack = NodePath("StatusAttack")
+aim = NodePath("PlayerAim")
 
 [node name="StatusHealth" parent="." node_paths=PackedStringArray("health_bar", "shield_bar") instance=ExtResource("1_5l3pl")]
-health_bar = NodePath("../HealthBar")
-shield_bar = NodePath("../ShieldBar")
+health_bar = NodePath("../CanvasLayer/HealthBar")
+shield_bar = NodePath("../CanvasLayer/ShieldBar")
 
 [node name="StatusSpeed" parent="." instance=ExtResource("2_eiwcd")]
 
@@ -83,10 +85,14 @@ health = NodePath("../StatusHealth")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_x7i0n")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_vxww1")
+[node name="Weapons" type="Node2D" parent="."]
 
-[node name="HealthBar" type="TextureProgressBar" parent="."]
+[node name="Bow" parent="Weapons" node_paths=PackedStringArray("player") instance=ExtResource("10_31isi")]
+player = NodePath("../..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer"]
 offset_left = -24.0
 offset_top = -32.0
 offset_right = 24.0
@@ -95,9 +101,12 @@ value = 100.0
 texture_under = SubResource("GradientTexture2D_fjoho")
 texture_progress = SubResource("GradientTexture2D_38vvm")
 
-[node name="ShieldBar" type="TextureProgressBar" parent="."]
+[node name="ShieldBar" type="TextureProgressBar" parent="CanvasLayer"]
 offset_left = -24.0
 offset_top = -32.0
 offset_right = 24.0
 offset_bottom = -24.0
 texture_progress = SubResource("GradientTexture2D_030v6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_vxww1")
