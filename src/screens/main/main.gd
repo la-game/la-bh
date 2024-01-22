@@ -1,7 +1,7 @@
 extends MarginContainer
 
 
-const LOBBY_SCENE: PackedScene = preload("res://src/screen/lobby/lobby.tscn")
+const LOBBY_SCENE: PackedScene = preload("res://src/screens/lobby/lobby.tscn")
 
 @export var host_window: Window
 

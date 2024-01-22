@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://kcuilacx8r00"]
 
-[ext_resource type="Script" path="res://src/game/map/map.gd" id="1_4n0ic"]
+[ext_resource type="Script" path="res://src/game/maps/map.gd" id="1_4n0ic"]
 [ext_resource type="TileSet" uid="uid://c8hvsphwrsbcu" path="res://assets/tileset.tres" id="1_vjjab"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_u6632"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://chbwcanmqg4rq"]
 
-[ext_resource type="Script" path="res://src/screen/main/join_window/join_window.gd" id="1_s0vap"]
+[ext_resource type="Script" path="res://src/screens/main/join_window/join_window.gd" id="1_s0vap"]
 
 [node name="JoinWindow" type="Window" node_paths=PackedStringArray("ip_edit", "port_edit", "notification_dialog")]
 position = Vector2i(0, 36)

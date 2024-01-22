@@ -3,22 +3,14 @@ class_name StatusShield
 extends Node
 
 
-signal destroied
-
-signal damaged
-
-
 @export var max_value: float
 
 @export var value: float:
 	set(v):
 		v = clamp(v, 0, max_value)
 		
-		if v < value:
-			damaged.emit()
-		
 		if value > 0 and v <= 0:
-			destroied.emit()
+			queue_free()
 		
 		value = v
 

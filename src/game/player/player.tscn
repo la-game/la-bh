@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://lnatwswf7kfw"]
+[gd_scene load_steps=19 format=3 uid="uid://lnatwswf7kfw"]
 
 [ext_resource type="PackedScene" uid="uid://dpivq7t6c8f87" path="res://src/components/status_health/status_health.tscn" id="1_5l3pl"]
 [ext_resource type="Script" path="res://src/game/player/player.gd" id="1_6ls87"]
@@ -21,6 +21,33 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="Gradient" id="Gradient_hjpoe"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0.498039)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fjoho"]
+gradient = SubResource("Gradient_hjpoe")
+width = 48
+height = 8
+
+[sub_resource type="Gradient" id="Gradient_iwy63"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.498039, 0, 0.498039)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_38vvm"]
+gradient = SubResource("Gradient_iwy63")
+width = 48
+height = 8
+
+[sub_resource type="Gradient" id="Gradient_oshs1"]
+offsets = PackedFloat32Array(0.00591716)
+colors = PackedColorArray(0, 0.498039, 1, 0.498039)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_030v6"]
+gradient = SubResource("Gradient_oshs1")
+width = 48
+height = 8
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack")]
 collision_layer = 2
 script = ExtResource("1_6ls87")
@@ -28,7 +55,9 @@ health = NodePath("StatusHealth")
 speed = NodePath("StatusSpeed")
 attack = NodePath("StatusAttack")
 
-[node name="StatusHealth" parent="." instance=ExtResource("1_5l3pl")]
+[node name="StatusHealth" parent="." node_paths=PackedStringArray("health_bar", "shield_bar") instance=ExtResource("1_5l3pl")]
+health_bar = NodePath("../HealthBar")
+shield_bar = NodePath("../ShieldBar")
 
 [node name="StatusSpeed" parent="." instance=ExtResource("2_eiwcd")]
 
@@ -56,3 +85,19 @@ shape = SubResource("CircleShape2D_x7i0n")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vxww1")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -24.0
+offset_top = -32.0
+offset_right = 24.0
+offset_bottom = -24.0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_fjoho")
+texture_progress = SubResource("GradientTexture2D_38vvm")
+
+[node name="ShieldBar" type="TextureProgressBar" parent="."]
+offset_left = -24.0
+offset_top = -32.0
+offset_right = 24.0
+offset_bottom = -24.0
+texture_progress = SubResource("GradientTexture2D_030v6")

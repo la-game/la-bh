@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="la-bh"
-run/main_scene="res://src/screen/main/main.tscn"
+run/main_scene="res://src/screens/main/main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 folder_colors={
 "res://src/components/": "teal",
 "res://src/game/": "red",
-"res://src/screen/": "blue",
+"res://src/screens/": "blue",
 "res://src/singletons/": "pink",
 "res://src/statics/": "purple"
 }

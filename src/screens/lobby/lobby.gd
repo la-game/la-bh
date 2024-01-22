@@ -1,7 +1,7 @@
 extends MarginContainer
 
 
-const MAP_00: PackedScene = preload("res://src/game/map/map_00.tscn")
+const MAP_00: PackedScene = preload("res://src/game/maps/map_00.tscn")
 
 
 @rpc("authority", "call_local", "reliable")

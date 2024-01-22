@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://oed6mfgj7mb7"]
 
-[ext_resource type="Script" path="res://src/screen/lobby/lobby.gd" id="1_5ayha"]
-[ext_resource type="PackedScene" uid="uid://cjm4xmfes10cs" path="res://src/screen/lobby/players_list/players_list.tscn" id="2_otrtt"]
+[ext_resource type="Script" path="res://src/screens/lobby/lobby.gd" id="1_5ayha"]
+[ext_resource type="PackedScene" uid="uid://cjm4xmfes10cs" path="res://src/screens/lobby/players_list/players_list.tscn" id="2_otrtt"]
 
 [node name="Lobby" type="MarginContainer"]
 anchors_preset = 15

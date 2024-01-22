@@ -21,6 +21,9 @@ func _ready() -> void:
 	
 	for peer in multiplayer.get_peers():
 		spawn_player(peer)
+	
+	if is_multiplayer_authority():
+		enemy_spawn_timer.start()
 
 
 func spawn_player(peer: int) -> void:

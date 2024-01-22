@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://f1dpotqg6x4l"]
 
-[ext_resource type="Script" path="res://src/screen/main/main.gd" id="1_are7o"]
-[ext_resource type="PackedScene" uid="uid://chbwcanmqg4rq" path="res://src/screen/main/join_window/join_window.tscn" id="1_yravo"]
-[ext_resource type="PackedScene" uid="uid://bacfjou6v2xyq" path="res://src/screen/main/host_window/host_window.tscn" id="3_f4706"]
+[ext_resource type="Script" path="res://src/screens/main/main.gd" id="1_are7o"]
+[ext_resource type="PackedScene" uid="uid://chbwcanmqg4rq" path="res://src/screens/main/join_window/join_window.tscn" id="1_yravo"]
+[ext_resource type="PackedScene" uid="uid://bacfjou6v2xyq" path="res://src/screens/main/host_window/host_window.tscn" id="3_f4706"]
 
 [node name="Main" type="MarginContainer" node_paths=PackedStringArray("host_window", "join_window")]
 anchors_preset = 15

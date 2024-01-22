@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bacfjou6v2xyq"]
 
-[ext_resource type="Script" path="res://src/screen/main/host_window/host_window.gd" id="1_3esus"]
+[ext_resource type="Script" path="res://src/screens/main/host_window/host_window.gd" id="1_3esus"]
 
 [node name="HostWindow" type="Window" node_paths=PackedStringArray("port_edit")]
 position = Vector2i(0, 36)

@@ -5,8 +5,9 @@ extends Node
 
 signal reached_zero
 
-
 @export var health_bar: TextureProgressBar
+
+@export var shield_bar: TextureProgressBar
 
 @export var max_value: float:
 	set(v):
@@ -37,3 +38,28 @@ func _ready() -> void:
 ## Damage health but goes through shields before.
 func damage(v: float) -> void:
 	pass
+
+
+## Add shield to be processed before health.
+func add_shield(shield: StatusShield) -> void:
+	shield.tree_exited.connect(update_shield_bar)
+	
+	add_child(shield)
+	update_shield_bar()
+
+
+## Update shield bar visual.
+func update_shield_bar() -> void:
+	if not shield_bar:
+		return
+	
+	var shield_max_value = 0
+	var shield_value = 0
+	
+	for shield in get_children():
+		if shield is StatusShield:
+			shield_max_value += shield.max_value
+			shield_value += shield.value
+	
+	shield_bar.max_value = shield_max_value
+	shield_bar.value = shield_value

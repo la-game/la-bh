@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://1wtwkvoqrufg"]
+
+[ext_resource type="Texture2D" uid="uid://ettk6e82k7fv" path="res://assets/bow.tres" id="1_a4mw6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8uiqp"]
+size = Vector2(60, 20)
+
+[node name="Bow" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_a4mw6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8uiqp")
+
+[node name="Timer" type="Timer" parent="."]
