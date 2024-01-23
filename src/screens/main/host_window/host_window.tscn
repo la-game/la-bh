@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" path="res://src/screens/main/host_window/host_window.gd" id="1_3esus"]
 
-[node name="HostWindow" type="Window" node_paths=PackedStringArray("port_edit")]
+[node name="HostWindow" type="Window" node_paths=PackedStringArray("port_edit", "notification_dialog")]
 position = Vector2i(0, 36)
 size = Vector2i(250, 150)
 script = ExtResource("1_3esus")
 port_edit = NodePath("MarginContainer/VBoxContainer/GridContainer/PortEdit")
+notification_dialog = NodePath("NotificationDialog")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
