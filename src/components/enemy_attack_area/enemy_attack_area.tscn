@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba11i1rngc1e8"]
+
+[ext_resource type="Script" path="res://src/components/enemy_attack_area/enemy_attack_area.gd" id="1_gywfp"]
+
+[node name="EnemyAttackArea" type="Area2D" node_paths=PackedStringArray("timer")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_gywfp")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

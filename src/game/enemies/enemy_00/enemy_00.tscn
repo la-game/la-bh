@@ -1,0 +1,66 @@
+[gd_scene load_steps=13 format=3 uid="uid://b6nimnv4o3gl0"]
+
+[ext_resource type="Texture2D" uid="uid://c8efvrd65icch" path="res://assets/enemy.tres" id="1_t72iu"]
+[ext_resource type="Script" path="res://src/game/enemies/enemy_00/enemy_00.gd" id="1_xa48n"]
+[ext_resource type="PackedScene" uid="uid://bgyu827rfph6j" path="res://src/components/hitbox/hitbox.tscn" id="2_g3vrq"]
+[ext_resource type="PackedScene" uid="uid://dpivq7t6c8f87" path="res://src/components/status_health/status_health.tscn" id="3_4af8a"]
+[ext_resource type="PackedScene" uid="uid://bb3ppamhukbxp" path="res://src/components/status_speed/status_speed.tscn" id="4_d1bod"]
+[ext_resource type="PackedScene" uid="uid://c0ri4ancwrl1j" path="res://src/components/status_attack/status_attack.tscn" id="5_6kp7y"]
+[ext_resource type="PackedScene" uid="uid://cnu41lrbdjx06" path="res://src/components/enemy_navigation/enemy_navigation.tscn" id="5_nf2ws"]
+[ext_resource type="PackedScene" uid="uid://ba11i1rngc1e8" path="res://src/components/enemy_attack_area/enemy_attack_area.tscn" id="8_wckdl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tfajm"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_goaog"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g52ex"]
+radius = 5.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nx0dk"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Enemy00" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "navigation", "hitbox")]
+collision_layer = 0
+script = ExtResource("1_xa48n")
+health = NodePath("StatusHealth")
+speed = NodePath("StatusSpeed")
+attack = NodePath("StatusAttack")
+navigation = NodePath("EnemyNavigation")
+hitbox = NodePath("Hitbox")
+
+[node name="StatusHealth" parent="." instance=ExtResource("3_4af8a")]
+max_value = 1.0
+value = 1.0
+
+[node name="StatusSpeed" parent="." instance=ExtResource("4_d1bod")]
+value = 100.0
+
+[node name="StatusAttack" parent="." instance=ExtResource("5_6kp7y")]
+
+[node name="EnemyNavigation" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("5_nf2ws")]
+enemy = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_t72iu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tfajm")
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("2_g3vrq")]
+collision_layer = 4
+health = NodePath("../StatusHealth")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_goaog")
+
+[node name="EnemyAttackArea" parent="." node_paths=PackedStringArray("attack") instance=ExtResource("8_wckdl")]
+attack = NodePath("../StatusAttack")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAttackArea"]
+shape = SubResource("CircleShape2D_g52ex")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_nx0dk")

@@ -37,7 +37,18 @@ func _ready() -> void:
 
 ## Damage health but goes through shields before.
 func damage(v: float) -> void:
-	pass
+	# Damaging shields.
+	for shield: StatusShield in get_children():
+		var exceed = shield.damage(v)
+		update_shield_bar()
+		
+		if exceed == 0:
+			return
+		
+		v = exceed
+	
+	# Damaging health.
+	value -= v
 
 
 ## Add shield to be processed before health.

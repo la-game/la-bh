@@ -1,15 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://1wtwkvoqrufg"]
+[gd_scene load_steps=6 format=3 uid="uid://1wtwkvoqrufg"]
 
 [ext_resource type="Texture2D" uid="uid://ettk6e82k7fv" path="res://assets/bow.tres" id="1_a4mw6"]
 [ext_resource type="Script" path="res://src/game/weapons/bow/bow.gd" id="1_cvuk1"]
+[ext_resource type="PackedScene" uid="uid://bb3ppamhukbxp" path="res://src/components/status_speed/status_speed.tscn" id="2_hgq4o"]
+[ext_resource type="PackedScene" uid="uid://c0ri4ancwrl1j" path="res://src/components/status_attack/status_attack.tscn" id="3_5mwys"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uiqp"]
 size = Vector2(20, 60)
 
-[node name="Bow" type="Area2D"]
+[node name="Bow" type="Area2D" node_paths=PackedStringArray("speed", "attack")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_cvuk1")
+speed = NodePath("StatusSpeed")
+attack = NodePath("StatusAttack")
+
+[node name="StatusSpeed" parent="." instance=ExtResource("2_hgq4o")]
+
+[node name="StatusAttack" parent="." instance=ExtResource("3_5mwys")]
+value = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(30, 0)

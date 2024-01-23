@@ -91,6 +91,7 @@ position = Vector2(330, 660)
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://src/game/enemies/enemy_00/enemy_00.tscn")
 spawn_path = NodePath("../Enemies")
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
