@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://lnatwswf7kfw"]
+[gd_scene load_steps=21 format=3 uid="uid://lnatwswf7kfw"]
 
 [ext_resource type="PackedScene" uid="uid://dpivq7t6c8f87" path="res://src/components/status_health/status_health.tscn" id="1_5l3pl"]
 [ext_resource type="Script" path="res://src/game/player/player.gd" id="1_6ls87"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dre2m6br1ehrq" path="res://src/components/player_aim/player_aim.tscn" id="4_o12vi"]
 [ext_resource type="PackedScene" uid="uid://bgyu827rfph6j" path="res://src/components/hitbox/hitbox.tscn" id="5_gjx5p"]
 [ext_resource type="PackedScene" uid="uid://du80x6s871mn0" path="res://src/components/player_camera/player_camera.tscn" id="6_22abn"]
+[ext_resource type="PackedScene" uid="uid://b7h7q3kt7bofy" path="res://src/components/player_weapons/player_weapons.tscn" id="10_0tyd4"]
 [ext_resource type="PackedScene" uid="uid://1wtwkvoqrufg" path="res://src/game/weapons/bow/bow.tscn" id="10_31isi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75ms6"]
@@ -49,17 +50,21 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "aim")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "movement", "aim", "hitbox", "weapons")]
 collision_layer = 0
 script = ExtResource("1_6ls87")
 health = NodePath("StatusHealth")
 speed = NodePath("StatusSpeed")
 attack = NodePath("StatusAttack")
+movement = NodePath("PlayerMovement")
 aim = NodePath("PlayerAim")
+hitbox = NodePath("Hitbox")
+weapons = NodePath("PlayerWeapons")
 
 [node name="StatusHealth" parent="." node_paths=PackedStringArray("health_bar", "shield_bar") instance=ExtResource("1_5l3pl")]
 health_bar = NodePath("../HealthBar")
 shield_bar = NodePath("../ShieldBar")
+value = 1.0
 
 [node name="StatusSpeed" parent="." instance=ExtResource("2_eiwcd")]
 
@@ -86,9 +91,9 @@ health = NodePath("../StatusHealth")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_x7i0n")
 
-[node name="Weapons" type="Node2D" parent="."]
+[node name="PlayerWeapons" parent="." instance=ExtResource("10_0tyd4")]
 
-[node name="Bow" parent="Weapons" node_paths=PackedStringArray("player") instance=ExtResource("10_31isi")]
+[node name="Bow" parent="PlayerWeapons" node_paths=PackedStringArray("player") instance=ExtResource("10_31isi")]
 player = NodePath("../..")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
@@ -109,3 +114,5 @@ texture_progress = SubResource("GradientTexture2D_030v6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vxww1")
+
+[connection signal="reached_zero" from="StatusHealth" to="." method="_on_status_health_reached_zero"]

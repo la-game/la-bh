@@ -7,8 +7,13 @@ extends Node
 
 @export var speed: StatusSpeed
 
+var disabled: bool = false
+
 
 func _physics_process(_delta: float) -> void:
+	if disabled:
+		return
+	
 	if not player:
 		return
 	

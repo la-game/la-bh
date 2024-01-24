@@ -3,6 +3,8 @@ extends Weapon
 
 const ARROW_SCENE = preload("res://src/game/weapons/arrow/arrow.tscn")
 
+@export var timer: Timer
+
 
 func _physics_process(_delta: float) -> void:
 	# NOTE: We don't have to sync rotation because we already sync player.aim
@@ -15,3 +17,13 @@ func _on_timer_timeout() -> void:
 	arrow.global_position = global_position
 	arrow.player = player
 	add_child(arrow)
+
+
+func disable() -> void:
+	set_physics_process(false)
+	timer.paused = true
+
+
+func enable() -> void:
+	set_physics_process(true)
+	timer.paused = false

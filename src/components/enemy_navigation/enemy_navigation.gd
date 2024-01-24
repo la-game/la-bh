@@ -29,6 +29,10 @@ func target_it(player2: Player) -> void:
 		player = player2
 		return
 	
+	if not player.alive:
+		player = player2
+		return
+	
 	var player2_distance = enemy.global_position.distance_to(player2.global_position)
 	var player_distance = enemy.global_position.distance_to(player.global_position)
 	

@@ -8,3 +8,11 @@ extends Area2D
 @export var speed: StatusSpeed
 
 @export var attack: StatusAttack
+
+
+func disable() -> void:
+	pass
+
+
+func enable() -> void:
+	pass

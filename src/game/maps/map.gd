@@ -48,7 +48,8 @@ func spawn_player(peer: int) -> void:
 func update_enemies_target() -> void:
 	for enemy: Enemy in enemies.get_children():
 		for player: Player in players.get_children():
-			enemy.navigation.target_it(player)
+			if player.alive:
+				enemy.navigation.target_it(player)
 
 
 func _on_enemy_spawn_timer_timeout() -> void:

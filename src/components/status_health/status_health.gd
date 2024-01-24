@@ -18,15 +18,22 @@ signal reached_zero
 
 @export var value: float:
 	set(v):
+		if immutable:
+			return
+		
 		v = clamp(v, 0, max_value)
 		
 		if health_bar:
 			health_bar.value = v
 		
-		if value > 0 and v <=0:
+		if value > 0 and v <= 0:
 			reached_zero.emit()
 		
 		value = v
+
+## Block changes to health and shields value.[br]
+## This can be used to avoid changing health when the player is dead.
+var immutable: bool = false
 
 
 func _ready() -> void:
@@ -37,6 +44,9 @@ func _ready() -> void:
 
 ## Damage health but goes through shields before.
 func damage(v: float) -> void:
+	if immutable:
+		return
+	
 	# Damaging shields.
 	for shield: StatusShield in get_children():
 		var exceed = shield.damage(v)

@@ -8,10 +8,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uiqp"]
 size = Vector2(20, 60)
 
-[node name="Bow" type="Area2D" node_paths=PackedStringArray("speed", "attack")]
+[node name="Bow" type="Area2D" node_paths=PackedStringArray("timer", "speed", "attack")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_cvuk1")
+timer = NodePath("Timer")
 speed = NodePath("StatusSpeed")
 attack = NodePath("StatusAttack")
 

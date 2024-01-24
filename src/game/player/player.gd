@@ -9,4 +9,19 @@ extends CharacterBody2D
 
 @export var attack: StatusAttack
 
+@export var movement: PlayerMovement
+
 @export var aim: PlayerAim
+
+@export var hitbox: Hitbox
+
+@export var weapons: PlayerWeapons
+
+var alive: bool = true
+
+
+func _on_status_health_reached_zero() -> void:
+	alive = false
+	movement.disabled = true
+	health.immutable = true
+	weapons.disable_all()
