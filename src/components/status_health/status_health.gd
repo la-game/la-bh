@@ -18,7 +18,8 @@ signal reached_zero
 
 @export var value: float:
 	set(v):
-		if immutable:
+		# Only block if is NOT a synchronization call.
+		if immutable and multiplayer.get_remote_sender_id() == 0:
 			return
 		
 		v = clamp(v, 0, max_value)

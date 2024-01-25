@@ -1,4 +1,11 @@
 ## Represent a player in the game.
+##
+## Player have [b]full[/b] control over himself (they have the authority over
+## his bodies), making player logic run locally without lag.
+## 
+## The downside is that a hacker will have full control over itself, he could
+## make his player never dies. I'm counting that the players will be playing with
+## friends and for fun, so this is an exchanging for running locally smoothly.
 class_name Player
 extends CharacterBody2D
 

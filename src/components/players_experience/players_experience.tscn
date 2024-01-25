@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://db6brdctfitoj"]
+
+[ext_resource type="Script" path="res://src/components/players_experience/players_experience.gd" id="1_cqetc"]
+
+[sub_resource type="Gradient" id="Gradient_ekvu4"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k6sqi"]
+gradient = SubResource("Gradient_ekvu4")
+width = 1152
+height = 20
+
+[sub_resource type="Gradient" id="Gradient_r1rfw"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.801746, 0.766877, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_52v3u"]
+gradient = SubResource("Gradient_r1rfw")
+width = 1152
+height = 20
+
+[node name="PlayersExperience" type="CanvasLayer" node_paths=PackedStringArray("experience_bar")]
+script = ExtResource("1_cqetc")
+max_value = 100.0
+experience_bar = NodePath("TextureProgressBar")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_under = SubResource("GradientTexture2D_k6sqi")
+texture_progress = SubResource("GradientTexture2D_52v3u")

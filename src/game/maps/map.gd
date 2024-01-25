@@ -15,6 +15,8 @@ const PLAYER_SCENE: PackedScene = preload("res://src/game/player/player.tscn")
 
 @export var enemies: Node2D
 
+@export var players_experience_bar: PlayersExperienceBar
+
 var enemies_group: Array[PackedScene] = EnemiesGroups.group_00
 
 
@@ -56,7 +58,13 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	var path_follow: PathFollow2D = PathPosition.get_random_path_follow(enemy_spawn_paths)
 	var spawn_position = PathPosition.get_random_position_in_path_follow(path_follow)
 	var enemy_scene: PackedScene = EnemiesGroups.random_enemy(enemies_group)
-	var enemy: Enemy = enemy_scene.instantiate()
+	var enemy: Enemy = enemy_scene.instantiate() as Enemy
 	
 	enemies.add_child(enemy, true)
 	enemy.global_position = spawn_position
+	enemy.players_experience_bar = players_experience_bar
+
+
+func _on_enemy_spawner_spawned(node: Node) -> void:
+	var enemy: Enemy = node as Enemy
+	enemy.players_experience_bar = players_experience_bar
