@@ -25,7 +25,7 @@ properties/1/path = NodePath("StatusHealth:value")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Enemy00" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "navigation", "hitbox", "synchronizer")]
+[node name="Enemy00" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "navigation", "hitbox")]
 collision_layer = 0
 script = ExtResource("1_xa48n")
 health = NodePath("StatusHealth")
@@ -33,7 +33,6 @@ speed = NodePath("StatusSpeed")
 attack = NodePath("StatusAttack")
 navigation = NodePath("EnemyNavigation")
 hitbox = NodePath("Hitbox")
-synchronizer = NodePath("MultiplayerSynchronizer")
 
 [node name="StatusHealth" parent="." instance=ExtResource("3_4af8a")]
 max_value = 1.0

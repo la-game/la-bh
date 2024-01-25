@@ -67,7 +67,6 @@ weapons = NodePath("PlayerWeapons")
 [node name="StatusHealth" parent="." node_paths=PackedStringArray("health_bar", "shield_bar") instance=ExtResource("1_5l3pl")]
 health_bar = NodePath("../HealthBar")
 shield_bar = NodePath("../ShieldBar")
-value = 10.0
 
 [node name="StatusSpeed" parent="." instance=ExtResource("2_eiwcd")]
 

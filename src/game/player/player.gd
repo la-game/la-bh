@@ -31,4 +31,5 @@ func _on_status_health_reached_zero() -> void:
 	alive = false
 	movement.disabled = true
 	health.immutable = true
+	hitbox.monitorable = false
 	weapons.disable_all()

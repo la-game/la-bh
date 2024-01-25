@@ -33,7 +33,7 @@ signal reached_zero
 		value = v
 
 ## Block changes to health and shields value.[br]
-## This can be used to avoid changing health when the player is dead.
+## This can be used to avoid healing when the player is dead.
 var immutable: bool = false
 
 
