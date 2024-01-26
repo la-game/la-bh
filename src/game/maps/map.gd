@@ -9,8 +9,6 @@ const PLAYER_SCENE: PackedScene = preload("res://src/game/player/player.tscn")
 
 @export var enemy_spawn_paths: Array[PathFollow2D] = []
 
-@export var enemy_spawn_timer: Timer
- 
 @export var players: Node2D
 
 @export var enemies: Node2D
@@ -25,9 +23,6 @@ func _ready() -> void:
 	
 	for peer in multiplayer.get_peers():
 		spawn_player(peer)
-	
-	if is_multiplayer_authority():
-		enemy_spawn_timer.start()
 
 
 func _physics_process(_delta: float) -> void:
@@ -54,11 +49,9 @@ func update_enemies_target() -> void:
 				enemy.navigation.target_it(player)
 
 
-func _on_enemy_spawn_timer_timeout() -> void:
+func _on_wave_rotation_enemy_created(enemy: Enemy) -> void:
 	var path_follow: PathFollow2D = PathPosition.get_random_path_follow(enemy_spawn_paths)
 	var spawn_position = PathPosition.get_random_position_in_path_follow(path_follow)
-	var enemy_scene: PackedScene = Waves.random_enemy(wave)
-	var enemy: Enemy = enemy_scene.instantiate() as Enemy
 	
 	enemies.add_child(enemy, true)
 	enemy.global_position = spawn_position

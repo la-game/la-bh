@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://kcuilacx8r00"]
+[gd_scene load_steps=12 format=3 uid="uid://kcuilacx8r00"]
 
 [ext_resource type="Script" path="res://src/game/maps/map.gd" id="1_4n0ic"]
 [ext_resource type="TileSet" uid="uid://c8hvsphwrsbcu" path="res://assets/tileset.tres" id="1_vjjab"]
 [ext_resource type="PackedScene" uid="uid://db6brdctfitoj" path="res://src/components/players_experience/players_experience.tscn" id="3_5dbhw"]
+[ext_resource type="PackedScene" uid="uid://c63rcqcfvueg6" path="res://src/components/wave/wave.tscn" id="4_ibfio"]
+[ext_resource type="PackedScene" uid="uid://bnwap7rfnoax0" path="res://src/components/wave_rotation/wave_rotation.tscn" id="4_uqhx3"]
+[ext_resource type="PackedScene" uid="uid://b6nimnv4o3gl0" path="res://src/game/enemies/enemy_00/enemy_00.tscn" id="5_d7d1j"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_u6632"]
 vertices = PackedVector2Array(170, 610, 230, 610, 230, 1030, 130, 1190, 290, 1030, 290, 1190, 130, 130, 170, 130, 770, 730, 770, 890, 710, 890, 370, 730, 710, 950, 650, 950, 650, 1190, 490, 1190, 490, 950, 430, 890, 430, 950, 370, 890, 470, 130, 470, 230, 410, 230, 310, 130, 310, 470, 370, 470, 410, 490, 370, 530, 430, 530, 470, 490, 470, 590, 430, 590, 830, 130, 830, 470, 770, 470, 730, 230, 770, 530, 710, 530, 730, 490, 710, 590, 670, 590, 670, 490, 670, 130, 670, 230, 1010, 1190, 850, 1190, 850, 1030, 910, 1030, 910, 610, 970, 610, 970, 130, 1010, 130, 1206, -54, 1206, 1590, 1150, 1330, 1150, -10, -54, -54, -10, -10, -54, 1590, -10, 1330, 410, 1330, 410, 1450, 470, 1450, 470, 1570, 670, 1570, 670, 1450, 730, 1450, 730, 1330, 1110, 1290, 690, 1290, 330, 1230, 450, 1230, 1110, 30, 1050, 1230, 1050, 90, 870, 510, 930, 90, 930, 570, 870, 570, 870, 90, 810, 930, 870, 990, 810, 990, 810, 690, 30, 30, 630, 90, 630, 270, 690, 270, 690, 450, 630, 450, 630, 630, 510, 630, 510, 450, 510, 270, 450, 450, 450, 270, 510, 90, 270, 90, 270, 510, 330, 510, 330, 570, 390, 570, 390, 630, 330, 690, 750, 630, 750, 570, 810, 570, 810, 510, 330, 930, 390, 930, 390, 990, 450, 990, 690, 1230, 690, 990, 750, 990, 810, 1230, 750, 930, 330, 990, 270, 990, 270, 570, 210, 570, 210, 90, 690, 1410, 630, 1410, 630, 1530, 510, 1530, 510, 1410, 450, 1410, 450, 1290, 30, 1290, 90, 1230, 90, 90)
@@ -34,11 +37,10 @@ _data = {
 }
 point_count = 6
 
-[node name="Map00" type="Node2D" node_paths=PackedStringArray("player_spawn_position", "enemy_spawn_paths", "enemy_spawn_timer", "players", "enemies", "players_experience_bar")]
+[node name="Map00" type="Node2D" node_paths=PackedStringArray("player_spawn_position", "enemy_spawn_paths", "players", "enemies", "players_experience_bar")]
 script = ExtResource("1_4n0ic")
 player_spawn_position = NodePath("PlayerSpawn")
 enemy_spawn_paths = [NodePath("Paths/Path2D/PathFollow2D"), NodePath("Paths/Path2D2/PathFollow2D"), NodePath("Paths/Path2D3/PathFollow2D"), NodePath("Paths/Path2D4/PathFollow2D")]
-enemy_spawn_timer = NodePath("EnemySpawnTimer")
 players = NodePath("Players")
 enemies = NodePath("Enemies")
 players_experience_bar = NodePath("PlayersExperienceBar")
@@ -86,17 +88,20 @@ curve = SubResource("Curve2D_3dcqp")
 [node name="PathFollow2D" type="PathFollow2D" parent="Paths/Path2D4"]
 position = Vector2(330, 660)
 
-[node name="EnemySpawnTimer" type="Timer" parent="."]
-
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="PlayersExperienceBar" parent="." instance=ExtResource("3_5dbhw")]
 
+[node name="WaveRotation" parent="." instance=ExtResource("4_uqhx3")]
+
+[node name="Wave" parent="WaveRotation" instance=ExtResource("4_ibfio")]
+enemies = Array[PackedScene]([ExtResource("5_d7d1j")])
+
 [node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://src/game/enemies/enemy_00/enemy_00.tscn")
 spawn_path = NodePath("../Enemies")
 
-[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="enemy_created" from="WaveRotation" to="." method="_on_wave_rotation_enemy_created"]
 [connection signal="spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_spawned"]
