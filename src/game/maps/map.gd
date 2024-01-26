@@ -17,7 +17,7 @@ const PLAYER_SCENE: PackedScene = preload("res://src/game/player/player.tscn")
 
 @export var players_experience_bar: PlayersExperienceBar
 
-var enemies_group: Array[PackedScene] = EnemiesGroups.group_00
+var wave: Array[PackedScene] = Waves.wave_00
 
 
 func _ready() -> void:
@@ -30,7 +30,7 @@ func _ready() -> void:
 		enemy_spawn_timer.start()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_multiplayer_authority():
 		update_enemies_target()
 
@@ -57,7 +57,7 @@ func update_enemies_target() -> void:
 func _on_enemy_spawn_timer_timeout() -> void:
 	var path_follow: PathFollow2D = PathPosition.get_random_path_follow(enemy_spawn_paths)
 	var spawn_position = PathPosition.get_random_position_in_path_follow(path_follow)
-	var enemy_scene: PackedScene = EnemiesGroups.random_enemy(enemies_group)
+	var enemy_scene: PackedScene = Waves.random_enemy(wave)
 	var enemy: Enemy = enemy_scene.instantiate() as Enemy
 	
 	enemies.add_child(enemy, true)

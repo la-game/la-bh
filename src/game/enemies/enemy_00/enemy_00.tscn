@@ -27,6 +27,8 @@ properties/1/replication_mode = 1
 
 [node name="Enemy00" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "navigation", "hitbox")]
 collision_layer = 0
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_xa48n")
 health = NodePath("StatusHealth")
 speed = NodePath("StatusSpeed")

@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func _on_status_health_reached_zero() -> void:
 	health.immutable = true
-	hitbox.monitorable = false
+	hitbox.set_deferred("monitorable", false)
 	players_experience_bar.value += experience
 	
 	# Calling "queue_free()" was making MultiplayerSynchonizer stop synchronizing,

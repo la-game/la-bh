@@ -16,6 +16,9 @@ func _physics_process(_delta: float) -> void:
 	if not player:
 		return
 	
+	if not player.alive:
+		return
+	
 	target_position = player.global_position
 	
 	var direction = enemy.global_position.direction_to(get_next_path_position())

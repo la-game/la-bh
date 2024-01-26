@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://src/components/enemy_navigation/enemy_navigation.gd" id="1_etanp"]
 
 [node name="EnemyNavigation" type="NavigationAgent2D"]
+debug_enabled = true
 script = ExtResource("1_etanp")
