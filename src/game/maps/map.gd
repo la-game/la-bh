@@ -15,8 +15,6 @@ const PLAYER_SCENE: PackedScene = preload("res://src/game/player/player.tscn")
 
 @export var players_experience_bar: PlayersExperienceBar
 
-var wave: Array[PackedScene] = Waves.wave_00
-
 
 func _ready() -> void:
 	spawn_player(multiplayer.get_unique_id())
