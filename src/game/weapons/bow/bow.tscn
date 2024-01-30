@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://1wtwkvoqrufg"]
+[gd_scene load_steps=8 format=3 uid="uid://1wtwkvoqrufg"]
 
 [ext_resource type="Texture2D" uid="uid://ettk6e82k7fv" path="res://assets/bow.tres" id="1_a4mw6"]
 [ext_resource type="Script" path="res://src/game/weapons/bow/bow.gd" id="1_cvuk1"]
 [ext_resource type="PackedScene" uid="uid://bb3ppamhukbxp" path="res://src/components/status_speed/status_speed.tscn" id="2_hgq4o"]
+[ext_resource type="PackedScene" uid="uid://cbknqids7n8wo" path="res://src/game/weapons/bow2/bow2.tscn" id="2_m6si5"]
 [ext_resource type="PackedScene" uid="uid://c0ri4ancwrl1j" path="res://src/components/status_attack/status_attack.tscn" id="3_5mwys"]
 [ext_resource type="PackedScene" uid="uid://bunhcoc5qh3wh" path="res://src/components/weapon_description/weapon_description.tscn" id="4_uu1nl"]
 
@@ -16,6 +17,7 @@ script = ExtResource("1_cvuk1")
 timer = NodePath("Timer")
 speed = NodePath("StatusSpeed")
 attack = NodePath("StatusAttack")
+upgrade = ExtResource("2_m6si5")
 
 [node name="StatusSpeed" parent="." instance=ExtResource("2_hgq4o")]
 

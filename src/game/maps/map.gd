@@ -32,8 +32,8 @@ func _physics_process(_delta: float) -> void:
 func spawn_player(peer: int) -> void:
 	var player: Player = PLAYER_SCENE.instantiate()
 	player.name = "Player" + str(peer)
-	players.add_child(player)
 	player.set_multiplayer_authority(peer)
+	players.add_child(player)
 	player.global_position = player_spawn_position.global_position
 
 

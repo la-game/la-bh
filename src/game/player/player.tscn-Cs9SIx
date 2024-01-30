@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bgyu827rfph6j" path="res://src/components/hitbox/hitbox.tscn" id="5_gjx5p"]
 [ext_resource type="PackedScene" uid="uid://du80x6s871mn0" path="res://src/components/player_camera/player_camera.tscn" id="6_22abn"]
 [ext_resource type="PackedScene" uid="uid://b7h7q3kt7bofy" path="res://src/components/player_weapons/player_weapons.tscn" id="10_0tyd4"]
-[ext_resource type="PackedScene" uid="uid://1wtwkvoqrufg" path="res://src/game/weapons/bow/bow.tscn" id="11_6h5bp"]
+[ext_resource type="PackedScene" uid="uid://1wtwkvoqrufg" path="res://src/game/weapons/bow/bow.tscn" id="10_31isi"]
 [ext_resource type="PackedScene" uid="uid://do6vnxo23unb4" path="res://src/components/upgrade_selector/upgrade_selector.tscn" id="12_ks4md"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75ms6"]
@@ -86,42 +86,3 @@ speed = NodePath("../StatusSpeed")
 texture = ExtResource("2_sf5mt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_75ms6")
-
-[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_gjx5p")]
-collision_layer = 2
-health = NodePath("../StatusHealth")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CircleShape2D_x7i0n")
-
-[node name="PlayerWeapons" parent="." node_paths=PackedStringArray("player") instance=ExtResource("10_0tyd4")]
-player = NodePath("..")
-
-[node name="Bow" parent="PlayerWeapons" node_paths=PackedStringArray("player") instance=ExtResource("11_6h5bp")]
-player = NodePath("../..")
-
-[node name="UpgradeSelector" parent="." node_paths=PackedStringArray("player") instance=ExtResource("12_ks4md")]
-visible = false
-player = NodePath("..")
-
-[node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = -24.0
-offset_top = -32.0
-offset_right = 24.0
-offset_bottom = -24.0
-value = 100.0
-texture_under = SubResource("GradientTexture2D_fjoho")
-texture_progress = SubResource("GradientTexture2D_38vvm")
-
-[node name="ShieldBar" type="TextureProgressBar" parent="."]
-offset_left = -24.0
-offset_top = -32.0
-offset_right = 24.0
-offset_bottom = -24.0
-texture_progress = SubResource("GradientTexture2D_030v6")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_vxww1")
-
-[connection signal="reached_zero" from="StatusHealth" to="." method="_on_status_health_reached_zero"]

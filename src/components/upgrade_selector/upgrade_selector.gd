@@ -5,7 +5,7 @@ extends CanvasLayer
 
 const OPTION_SCENE: PackedScene = preload("res://src/components/upgrade_option/upgrade_option.tscn")
 
-@export var player_weapons: Node
+@export var player: Player
 
 @export var container: Container
 
@@ -13,14 +13,23 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var points: int = 0:
 	set(p):
-		if p == 1:
-			fill()
-			show()
-		elif p <= 0:
+		p = max(0, p)
+		
+		if p == 0:
 			clear()
 			hide()
+		elif p >= 1:
+			# Only fill if there were no upgrade options,
+			# otherwise fill() would clear current options.
+			if points == 0:
+				fill()
+			show()
+		
+		points = p
 
 
+## Fill with 3 upgrade options.[br]
+## It also remove any previous upgrades for safety (no risk of stacking upgrades).
 func fill() -> void:
 	clear()
 	add_old_weapon_upgrade()
@@ -28,6 +37,7 @@ func fill() -> void:
 	add_status_upgrade()
 
 
+## Remove all upgrade options.
 func clear() -> void:
 	for child in container.get_children():
 		child.queue_free()
@@ -36,15 +46,20 @@ func clear() -> void:
 ## Add an upgrade that will replace a previous weapon.[br]
 ## In case there is no weapon to choose from, it will fall to [method add_new_weapon_upgrade].
 func add_old_weapon_upgrade() -> void:
-	var weapons_count: int = player_weapons.get_child_count()
+	var weapons: Array[Weapon] = []
 	
-	if weapons_count <= 0:
+	# We only care about weapons that can be upgraded.
+	for w: Weapon in player.weapons.get_children():
+		if w.upgrade:
+			weapons.append(w)
+	
+	if weapons.size() <= 0:
 		return add_new_weapon_upgrade()
 	
-	var index: int = rng.randi_range(0, weapons_count - 1)
-	var weapon: Weapon = player_weapons.get_child(index) as Weapon
+	var index: int = rng.randi_range(0, weapons.size() - 1)
+	var weapon: Weapon = weapons[index]
 	
-	if not weapon.upgrade:
+	if weapon.upgrade == null:
 		return add_new_weapon_upgrade()
 	
 	add_option(weapon.upgrade)
@@ -61,9 +76,19 @@ func add_status_upgrade() -> void:
 	pass
 
 
+## Add an [UpgradeOption] about the weapon.
 func add_option(weapon_scene: PackedScene) -> void:
-	var weapon: Weapon = weapon_scene.instantiate() as Weapon
-	container.add_child(OPTION_SCENE.instantiate().init(weapon))
+	var upgrade_option: UpgradeOption = OPTION_SCENE.instantiate()
+	upgrade_option.weapon_scene = weapon_scene
+	upgrade_option.pressed.connect(apply_upgrade)
+	container.add_child(upgrade_option)
+
+
+func apply_upgrade(weapon_scene: PackedScene) -> void:
+	# Find the weapon locally and make only one RPC to others.
+	for weapon: Weapon in player.weapons.get_children():
+		if weapon.upgrade == weapon_scene:
+			player.weapons.forge_upgrade.rpc(weapon.get_path())
+			break
 	
-	# We need to manually free because it's not inside tree and it's not reference counted.
-	weapon.free()
+	points -= 1
