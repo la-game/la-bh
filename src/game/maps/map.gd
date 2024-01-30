@@ -59,3 +59,10 @@ func _on_wave_rotation_enemy_created(enemy: Enemy) -> void:
 func _on_enemy_spawner_spawned(node: Node) -> void:
 	var enemy: Enemy = node as Enemy
 	enemy.players_experience_bar = players_experience_bar
+
+
+func _on_players_experience_bar_level_up() -> void:
+	for player: Player in players.get_children():
+		# Only give point to your player.
+		if player.is_multiplayer_authority():
+			player.upgrade_selector.points += 1

@@ -93,6 +93,7 @@ position = Vector2(330, 660)
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="PlayersExperienceBar" parent="." instance=ExtResource("3_5dbhw")]
+max_value = 2.0
 
 [node name="WaveRotation" parent="." instance=ExtResource("4_uqhx3")]
 
@@ -103,5 +104,6 @@ enemies = Array[PackedScene]([ExtResource("5_d7d1j")])
 _spawnable_scenes = PackedStringArray("res://src/game/enemies/enemy_00/enemy_00.tscn")
 spawn_path = NodePath("../Enemies")
 
+[connection signal="level_up" from="PlayersExperienceBar" to="." method="_on_players_experience_bar_level_up"]
 [connection signal="enemy_created" from="WaveRotation" to="." method="_on_wave_rotation_enemy_created"]
 [connection signal="spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_spawned"]

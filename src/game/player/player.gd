@@ -24,6 +24,8 @@ extends CharacterBody2D
 
 @export var weapons: PlayerWeapons
 
+@export var upgrade_selector: UpgradeSelector
+
 var alive: bool = true
 
 

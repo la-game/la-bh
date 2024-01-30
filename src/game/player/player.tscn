@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://lnatwswf7kfw"]
+[gd_scene load_steps=22 format=3 uid="uid://lnatwswf7kfw"]
 
 [ext_resource type="PackedScene" uid="uid://dpivq7t6c8f87" path="res://src/components/status_health/status_health.tscn" id="1_5l3pl"]
 [ext_resource type="Script" path="res://src/game/player/player.gd" id="1_6ls87"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://du80x6s871mn0" path="res://src/components/player_camera/player_camera.tscn" id="6_22abn"]
 [ext_resource type="PackedScene" uid="uid://b7h7q3kt7bofy" path="res://src/components/player_weapons/player_weapons.tscn" id="10_0tyd4"]
 [ext_resource type="PackedScene" uid="uid://1wtwkvoqrufg" path="res://src/game/weapons/bow/bow.tscn" id="10_31isi"]
+[ext_resource type="PackedScene" uid="uid://do6vnxo23unb4" path="res://src/components/upgrade_selector/upgrade_selector.tscn" id="12_ks4md"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75ms6"]
 radius = 8.0
@@ -53,7 +54,7 @@ properties/1/path = NodePath("StatusHealth:value")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "movement", "aim", "hitbox", "weapons")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "movement", "aim", "hitbox", "weapons", "upgrade_selector")]
 collision_layer = 0
 script = ExtResource("1_6ls87")
 health = NodePath("StatusHealth")
@@ -63,6 +64,7 @@ movement = NodePath("PlayerMovement")
 aim = NodePath("PlayerAim")
 hitbox = NodePath("Hitbox")
 weapons = NodePath("PlayerWeapons")
+upgrade_selector = NodePath("UpgradeSelector")
 
 [node name="StatusHealth" parent="." node_paths=PackedStringArray("health_bar", "shield_bar") instance=ExtResource("1_5l3pl")]
 health_bar = NodePath("../HealthBar")
@@ -97,6 +99,10 @@ shape = SubResource("CircleShape2D_x7i0n")
 
 [node name="Bow" parent="PlayerWeapons" node_paths=PackedStringArray("player") instance=ExtResource("10_31isi")]
 player = NodePath("../..")
+
+[node name="UpgradeSelector" parent="." node_paths=PackedStringArray("player_weapons") instance=ExtResource("12_ks4md")]
+visible = false
+player_weapons = NodePath("../PlayerWeapons")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = -24.0

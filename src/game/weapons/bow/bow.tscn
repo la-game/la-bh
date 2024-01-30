@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://1wtwkvoqrufg"]
+[gd_scene load_steps=7 format=3 uid="uid://1wtwkvoqrufg"]
 
 [ext_resource type="Texture2D" uid="uid://ettk6e82k7fv" path="res://assets/bow.tres" id="1_a4mw6"]
 [ext_resource type="Script" path="res://src/game/weapons/bow/bow.gd" id="1_cvuk1"]
 [ext_resource type="PackedScene" uid="uid://bb3ppamhukbxp" path="res://src/components/status_speed/status_speed.tscn" id="2_hgq4o"]
 [ext_resource type="PackedScene" uid="uid://c0ri4ancwrl1j" path="res://src/components/status_attack/status_attack.tscn" id="3_5mwys"]
+[ext_resource type="PackedScene" uid="uid://bunhcoc5qh3wh" path="res://src/components/weapon_description/weapon_description.tscn" id="4_uu1nl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uiqp"]
 size = Vector2(20, 60)
@@ -20,6 +21,8 @@ attack = NodePath("StatusAttack")
 
 [node name="StatusAttack" parent="." instance=ExtResource("3_5mwys")]
 value = 0.0
+
+[node name="WeaponDescription" parent="." instance=ExtResource("4_uu1nl")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(30, 0)
