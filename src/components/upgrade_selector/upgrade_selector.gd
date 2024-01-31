@@ -19,18 +19,18 @@ var points: int = 0:
 			clear()
 			hide()
 		elif p >= 1:
-			# Only fill if there were no upgrade options,
-			# otherwise fill() would clear current options.
-			if points == 0:
-				fill()
+			# Only refresh if the user spent points,
+			# or if there was no points.
+			if p < points or points == 0:
+				refresh()
 			show()
 		
 		points = p
 
 
-## Fill with 3 upgrade options.[br]
-## It also remove any previous upgrades for safety (no risk of stacking upgrades).
-func fill() -> void:
+## Refresh the 3 upgrade options.[br]
+## This means removing old and adding new ones.[br][br]
+func refresh() -> void:
 	clear()
 	add_old_weapon_upgrade()
 	add_new_weapon_upgrade()
@@ -50,7 +50,7 @@ func add_old_weapon_upgrade() -> void:
 	
 	# We only care about weapons that can be upgraded.
 	for w: Weapon in player.weapons.get_children():
-		if w.upgrade:
+		if w.upgrade and not w.is_queued_for_deletion():
 			weapons.append(w)
 	
 	if weapons.size() <= 0:

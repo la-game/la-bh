@@ -26,7 +26,7 @@ func _on_status_health_reached_zero() -> void:
 	hitbox.set_deferred("monitorable", false)
 	players_experience_bar.value += experience
 	
-	# MultiplayerSpawner will take care of removing from clients.
+	# MultiplayerSpawner from host will take care of removing from clients.
 	if is_multiplayer_authority():
 		# Calling "queue_free()" was making MultiplayerSynchonizer stop synchronizing,
 		# which means that any last changes were ignored (like health = 0).
