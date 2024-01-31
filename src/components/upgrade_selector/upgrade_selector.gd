@@ -32,9 +32,9 @@ var points: int = 0:
 ## This means removing old and adding new ones.[br][br]
 func refresh() -> void:
 	clear()
-	add_old_weapon_upgrade()
-	add_new_weapon_upgrade()
-	add_status_upgrade()
+	add_forge_weapon_option()
+	add_learn_weapon_option()
+	add_improve_status_option()
 
 
 ## Remove all upgrade options.
@@ -43,9 +43,9 @@ func clear() -> void:
 		child.queue_free()
 
 
-## Add an upgrade that will replace a previous weapon.[br]
-## In case there is no weapon to choose from, it will fall to [method add_new_weapon_upgrade].
-func add_old_weapon_upgrade() -> void:
+## Add option to forge a new weapon using previous weapon(s).[br]
+## In case there is no weapon to choose from, it will fall to [method add_learn_weapon_option].
+func add_forge_weapon_option() -> void:
 	var weapons: Array[Weapon] = []
 	
 	# We only care about weapons that can be upgraded.
@@ -54,41 +54,34 @@ func add_old_weapon_upgrade() -> void:
 			weapons.append(w)
 	
 	if weapons.size() <= 0:
-		return add_new_weapon_upgrade()
+		return add_learn_weapon_option()
 	
 	var index: int = rng.randi_range(0, weapons.size() - 1)
 	var weapon: Weapon = weapons[index]
-	
-	if weapon.upgrade == null:
-		return add_new_weapon_upgrade()
-	
-	add_option(weapon.upgrade)
-
-
-## Add an upgrade that will insert itself as new weapon.
-## In case player doesn't have slot for new weapons, it will fall [method add_status_upgrade].
-func add_new_weapon_upgrade() -> void:
-	pass
-
-
-## Add an upgrade that will improve player status.
-func add_status_upgrade() -> void:
-	pass
-
-
-## Add an [UpgradeOption] about the weapon.
-func add_option(weapon_scene: PackedScene) -> void:
 	var upgrade_option: UpgradeOption = OPTION_SCENE.instantiate()
-	upgrade_option.weapon_scene = weapon_scene
-	upgrade_option.pressed.connect(apply_upgrade)
+	
+	upgrade_option.weapon_scene = weapon.upgrade
+	upgrade_option.pressed.connect(forge_upgrade)
 	container.add_child(upgrade_option)
 
 
-func apply_upgrade(weapon_scene: PackedScene) -> void:
-	# Find the weapon locally and make only one RPC to others.
+## Add option to learn a new weapon.
+## In case player doesn't have slot for new weapons, it will fall [method add_improve_status_option].
+func add_learn_weapon_option() -> void:
+	pass
+
+
+## Add option to improve a status.
+func add_improve_status_option() -> void:
+	pass
+
+
+## Creates a new weapon and remove all weapons responsible for forging it.
+func forge_upgrade(weapon_scene: PackedScene) -> void:
 	for weapon: Weapon in player.weapons.get_children():
 		if weapon.upgrade == weapon_scene:
-			player.weapons.forge_upgrade.rpc(weapon.get_path())
+			weapon.queue_free()
 			break
 	
+	player.weapons.add_child(weapon_scene.instantiate())
 	points -= 1

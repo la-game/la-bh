@@ -22,12 +22,15 @@ description = NodePath("WeaponDescription")
 upgrade = ExtResource("2_ddl8i")
 
 [node name="StatusSpeed" parent="." instance=ExtResource("2_ygmie")]
+value = 500.0
 
 [node name="StatusAttack" parent="." instance=ExtResource("3_eqjkb")]
 value = 0.0
 
 [node name="WeaponDescription" parent="." instance=ExtResource("4_q3o67")]
 icon = ExtResource("5_okym0")
+text = "Spawn arrow: 1s -> 0.5s
+Arrows speed: 250 -> 500"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(30, 0)

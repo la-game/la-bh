@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://lnatwswf7kfw"]
+[gd_scene load_steps=21 format=3 uid="uid://lnatwswf7kfw"]
 
 [ext_resource type="PackedScene" uid="uid://dpivq7t6c8f87" path="res://src/components/status_health/status_health.tscn" id="1_5l3pl"]
 [ext_resource type="Script" path="res://src/game/player/player.gd" id="1_6ls87"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://bgyu827rfph6j" path="res://src/components/hitbox/hitbox.tscn" id="5_gjx5p"]
 [ext_resource type="PackedScene" uid="uid://du80x6s871mn0" path="res://src/components/player_camera/player_camera.tscn" id="6_22abn"]
 [ext_resource type="PackedScene" uid="uid://b7h7q3kt7bofy" path="res://src/components/player_weapons/player_weapons.tscn" id="10_0tyd4"]
-[ext_resource type="PackedScene" uid="uid://1wtwkvoqrufg" path="res://src/game/weapons/bow/bow.tscn" id="11_6h5bp"]
 [ext_resource type="PackedScene" uid="uid://do6vnxo23unb4" path="res://src/components/upgrade_selector/upgrade_selector.tscn" id="12_ks4md"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75ms6"]
@@ -98,9 +97,6 @@ shape = SubResource("CircleShape2D_x7i0n")
 [node name="PlayerWeapons" parent="." node_paths=PackedStringArray("player") instance=ExtResource("10_0tyd4")]
 player = NodePath("..")
 
-[node name="Bow" parent="PlayerWeapons" node_paths=PackedStringArray("player") instance=ExtResource("11_6h5bp")]
-player = NodePath("../..")
-
 [node name="UpgradeSelector" parent="." node_paths=PackedStringArray("player") instance=ExtResource("12_ks4md")]
 visible = false
 player = NodePath("..")
@@ -123,5 +119,9 @@ texture_progress = SubResource("GradientTexture2D_030v6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vxww1")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://src/game/weapons/bow/bow.tscn", "res://src/game/weapons/bow2/bow2.tscn", "res://src/game/weapons/bow3/bow3.tscn")
+spawn_path = NodePath("../PlayerWeapons")
 
 [connection signal="reached_zero" from="StatusHealth" to="." method="_on_status_health_reached_zero"]

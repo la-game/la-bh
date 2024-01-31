@@ -26,6 +26,8 @@ value = 0.0
 
 [node name="WeaponDescription" parent="." instance=ExtResource("4_k6l8y")]
 icon = ExtResource("5_uej2r")
+text = "Spawn arrow: 0.5s -> 0.25s
+Spawn arrow angles order: 0º -> 22.5º, 0º, -22.5º"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(30, 0)

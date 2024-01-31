@@ -15,7 +15,7 @@ func _on_timer_timeout() -> void:
 	var arrow: Weapon = ARROW_SCENE.instantiate() as Weapon
 	arrow.global_rotation = global_rotation
 	arrow.global_position = global_position
-	arrow.speed.value = 500
+	arrow.speed.value = speed.value
 	arrow.player = player
 	add_child(arrow)
 

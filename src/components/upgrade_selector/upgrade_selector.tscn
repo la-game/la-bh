@@ -5,20 +5,29 @@
 
 [node name="UpgradeSelector" type="CanvasLayer" node_paths=PackedStringArray("container")]
 script = ExtResource("1_fek4s")
-container = NodePath("VBoxContainer")
+container = NodePath("Panel/VBoxContainer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(400, 400)
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -13.0
-offset_top = -4.0
-offset_bottom = 4.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="UpgradeOption" parent="VBoxContainer" instance=ExtResource("2_uygee")]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -26.5
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UpgradeOption" parent="Panel/VBoxContainer" instance=ExtResource("2_uygee")]
 layout_mode = 2
-size_flags_vertical = 3
