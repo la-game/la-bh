@@ -1,8 +1,6 @@
 extends Weapon
 
 
-const ARROW_SCENE = preload("res://src/game/weapons/arrow/arrow.tscn")
-
 @export var timer: Timer
 
 var angle_index: int = 0
@@ -16,8 +14,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	
-	var arrow: Weapon = ARROW_SCENE.instantiate() as Weapon
+	var arrow: Weapon = Weapons.ARROW.instantiate() as Weapon
 	var angle: float = angles[angle_index]
 	arrow.global_rotation = global_rotation + angle
 	arrow.global_position = global_position

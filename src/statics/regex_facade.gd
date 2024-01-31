@@ -1,3 +1,4 @@
+## Responsible to hold some common regex search or substitution.
 class_name RegexFacade
 extends RefCounted
 

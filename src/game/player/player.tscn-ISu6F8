@@ -1,0 +1,90 @@
+[gd_scene load_steps=21 format=3 uid="uid://lnatwswf7kfw"]
+
+[ext_resource type="PackedScene" uid="uid://dpivq7t6c8f87" path="res://src/components/status_health/status_health.tscn" id="1_5l3pl"]
+[ext_resource type="Script" path="res://src/game/player/player.gd" id="1_6ls87"]
+[ext_resource type="PackedScene" uid="uid://bb3ppamhukbxp" path="res://src/components/status_speed/status_speed.tscn" id="2_eiwcd"]
+[ext_resource type="Texture2D" uid="uid://8wdqygdr3e5e" path="res://assets/player.tres" id="2_sf5mt"]
+[ext_resource type="PackedScene" uid="uid://c0ri4ancwrl1j" path="res://src/components/status_attack/status_attack.tscn" id="3_kh1pg"]
+[ext_resource type="PackedScene" uid="uid://bvm7tjwa07dwy" path="res://src/components/player_movement/player_movement.tscn" id="4_bgma5"]
+[ext_resource type="PackedScene" uid="uid://dre2m6br1ehrq" path="res://src/components/player_aim/player_aim.tscn" id="4_o12vi"]
+[ext_resource type="PackedScene" uid="uid://bgyu827rfph6j" path="res://src/components/hitbox/hitbox.tscn" id="5_gjx5p"]
+[ext_resource type="PackedScene" uid="uid://du80x6s871mn0" path="res://src/components/player_camera/player_camera.tscn" id="6_22abn"]
+[ext_resource type="PackedScene" uid="uid://b7h7q3kt7bofy" path="res://src/components/player_weapons/player_weapons.tscn" id="10_0tyd4"]
+[ext_resource type="PackedScene" uid="uid://do6vnxo23unb4" path="res://src/components/upgrade_selector/upgrade_selector.tscn" id="12_ks4md"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_75ms6"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x7i0n"]
+radius = 16.0
+
+[sub_resource type="Gradient" id="Gradient_hjpoe"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fjoho"]
+gradient = SubResource("Gradient_hjpoe")
+width = 48
+height = 8
+
+[sub_resource type="Gradient" id="Gradient_iwy63"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.498039, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_38vvm"]
+gradient = SubResource("Gradient_iwy63")
+width = 48
+height = 8
+
+[sub_resource type="Gradient" id="Gradient_oshs1"]
+offsets = PackedFloat32Array(0.00591716)
+colors = PackedColorArray(0, 0.498039, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_030v6"]
+gradient = SubResource("Gradient_oshs1")
+width = 48
+height = 8
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vxww1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("StatusHealth:value")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "movement", "aim", "hitbox", "weapons", "upgrade_selector")]
+collision_layer = 0
+script = ExtResource("1_6ls87")
+health = NodePath("StatusHealth")
+speed = NodePath("StatusSpeed")
+attack = NodePath("StatusAttack")
+movement = NodePath("PlayerMovement")
+aim = NodePath("PlayerAim")
+hitbox = NodePath("Hitbox")
+weapons = NodePath("PlayerWeapons")
+upgrade_selector = NodePath("UpgradeSelector")
+
+[node name="StatusHealth" parent="." node_paths=PackedStringArray("health_bar", "shield_bar") instance=ExtResource("1_5l3pl")]
+health_bar = NodePath("../HealthBar")
+shield_bar = NodePath("../ShieldBar")
+
+[node name="StatusSpeed" parent="." instance=ExtResource("2_eiwcd")]
+
+[node name="StatusAttack" parent="." instance=ExtResource("3_kh1pg")]
+
+[node name="PlayerMovement" parent="." node_paths=PackedStringArray("player", "speed") instance=ExtResource("4_bgma5")]
+player = NodePath("..")
+speed = NodePath("../StatusSpeed")
+
+[node name="PlayerAim" parent="." instance=ExtResource("4_o12vi")]
+
+[node name="PlayerCamera" parent="." instance=ExtResource("6_22abn")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sf5mt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_75ms6")
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") i

@@ -30,7 +30,6 @@ func _on_wave_timer_timeout() -> void:
 	# We want to remove the current wave and start the next wave.
 	for child in get_children():
 		if child is Wave:
-			
 			if not current_wave_removed:
 				child.queue_free()
 				spawn_timer.stop()
