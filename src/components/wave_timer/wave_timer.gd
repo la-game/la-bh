@@ -9,8 +9,11 @@ extends CanvasLayer
 @export var timer_label: Label
 
 
-func _process(delta: float) -> void:
-	var time_left: int = wave_rotation.wave_timer.time_left
+func _process(_delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+	
+	var time_left: int = wave_rotation.wave_timer.time_left as int
 	var datetime: Dictionary = Time.get_datetime_dict_from_unix_time(time_left)
 	
 	wave_label.text = "Wave %s - " % wave_rotation.current

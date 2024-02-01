@@ -11,6 +11,8 @@ const OPTION_SCENE: PackedScene = preload("res://src/components/upgrade_option/u
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
+var basic_weapons: Array[PackedScene] = Weapons.get_basic_weapons()
+
 var points: int = 0:
 	set(p):
 		p = max(0, p)
@@ -61,14 +63,23 @@ func add_forge_weapon_option() -> void:
 	var upgrade_option: UpgradeOption = OPTION_SCENE.instantiate()
 	
 	upgrade_option.weapon_scene = weapon.upgrade
-	upgrade_option.pressed.connect(forge_upgrade)
+	upgrade_option.pressed.connect(forge_weapon)
 	container.add_child(upgrade_option)
 
 
 ## Add option to learn a new weapon.
 ## In case player doesn't have slot for new weapons, it will fall [method add_improve_status_option].
 func add_learn_weapon_option() -> void:
-	pass
+	if basic_weapons.is_empty():
+		return add_improve_status_option()
+	
+	var index: int = rng.randi_range(0, basic_weapons.size() - 1)
+	var upgrade_option: UpgradeOption = OPTION_SCENE.instantiate()
+	
+	upgrade_option.weapon_scene = basic_weapons[index]
+	upgrade_option.pressed.connect(learn_weapon)
+	container.add_child(upgrade_option)
+	
 
 
 ## Add option to improve a status.
@@ -77,11 +88,18 @@ func add_improve_status_option() -> void:
 
 
 ## Creates a new weapon and remove all weapons responsible for forging it.
-func forge_upgrade(weapon_scene: PackedScene) -> void:
+func forge_weapon(weapon_scene: PackedScene) -> void:
 	for weapon: Weapon in player.weapons.get_children():
 		if weapon.upgrade == weapon_scene:
 			weapon.queue_free()
 			break
 	
-	player.weapons.add_child(weapon_scene.instantiate())
+	player.weapons.add_child(weapon_scene.instantiate(), true)
+	points -= 1
+
+
+## Creates a new weapon.
+func learn_weapon(weapon_scene: PackedScene) -> void:
+	player.weapons.add_child(weapon_scene.instantiate(), true)
+	basic_weapons.erase(weapon_scene)
 	points -= 1

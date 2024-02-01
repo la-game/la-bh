@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpojlfukwac6f"]
+[gd_scene load_steps=3 format=3 uid="uid://bpojlfukwac6f"]
 
 [ext_resource type="Script" path="res://src/components/wave_timer/wave_timer.gd" id="1_j3obn"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xsmb3"]
+properties/0/path = NodePath("MarginContainer/HBoxContainer/WaveLabel:text")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("MarginContainer/HBoxContainer/TimerLabel:text")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [node name="WaveTimer" type="CanvasLayer" node_paths=PackedStringArray("wave_label", "timer_label")]
 script = ExtResource("1_j3obn")
@@ -24,3 +32,6 @@ text = "Wave X -"
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 text = "5:00"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_xsmb3")
