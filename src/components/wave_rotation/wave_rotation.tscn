@@ -4,13 +4,15 @@
 
 [node name="WaveRotation" type="Node" node_paths=PackedStringArray("wave_timer", "spawn_timer")]
 script = ExtResource("1_conxc")
-wave_timer = NodePath("WaveTimer")
-spawn_timer = NodePath("SpawnTimer")
+wave_timer = NodePath("Helpers/WaveTimer")
+spawn_timer = NodePath("Helpers/SpawnTimer")
 
-[node name="WaveTimer" type="Timer" parent="."]
+[node name="Helpers" type="Node" parent="."]
+
+[node name="WaveTimer" type="Timer" parent="Helpers"]
 one_shot = true
 
-[node name="SpawnTimer" type="Timer" parent="."]
+[node name="SpawnTimer" type="Timer" parent="Helpers"]
 
-[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="Helpers/WaveTimer" to="." method="_on_wave_timer_timeout"]
+[connection signal="timeout" from="Helpers/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

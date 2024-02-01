@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpojlfukwac6f"]
+
+[ext_resource type="Script" path="res://src/components/wave_timer/wave_timer.gd" id="1_j3obn"]
+
+[node name="WaveTimer" type="CanvasLayer" node_paths=PackedStringArray("wave_label", "timer_label")]
+script = ExtResource("1_j3obn")
+wave_label = NodePath("MarginContainer/HBoxContainer/WaveLabel")
+timer_label = NodePath("MarginContainer/HBoxContainer/TimerLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_top = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="WaveLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "Wave X -"
+
+[node name="TimerLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "5:00"

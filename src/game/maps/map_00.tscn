@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://kcuilacx8r00"]
+[gd_scene load_steps=13 format=3 uid="uid://kcuilacx8r00"]
 
 [ext_resource type="Script" path="res://src/game/maps/map.gd" id="1_4n0ic"]
 [ext_resource type="TileSet" uid="uid://c8hvsphwrsbcu" path="res://assets/tileset.tres" id="1_vjjab"]
 [ext_resource type="PackedScene" uid="uid://db6brdctfitoj" path="res://src/components/players_experience/players_experience.tscn" id="3_5dbhw"]
+[ext_resource type="PackedScene" uid="uid://bpojlfukwac6f" path="res://src/components/wave_timer/wave_timer.tscn" id="4_eyng2"]
 [ext_resource type="PackedScene" uid="uid://c63rcqcfvueg6" path="res://src/components/wave/wave.tscn" id="4_ibfio"]
 [ext_resource type="PackedScene" uid="uid://bnwap7rfnoax0" path="res://src/components/wave_rotation/wave_rotation.tscn" id="4_uqhx3"]
 [ext_resource type="PackedScene" uid="uid://b6nimnv4o3gl0" path="res://src/game/enemies/enemy_00/enemy_00.tscn" id="5_d7d1j"]
@@ -95,9 +96,23 @@ position = Vector2(330, 660)
 [node name="PlayersExperienceBar" parent="." instance=ExtResource("3_5dbhw")]
 max_value = 2.0
 
+[node name="WaveTimer" parent="." node_paths=PackedStringArray("wave_rotation") instance=ExtResource("4_eyng2")]
+wave_rotation = NodePath("../WaveRotation")
+
 [node name="WaveRotation" parent="." instance=ExtResource("4_uqhx3")]
 
 [node name="Wave" parent="WaveRotation" instance=ExtResource("4_ibfio")]
+duration = 60.0
+enemies = Array[PackedScene]([ExtResource("5_d7d1j")])
+
+[node name="Wave2" parent="WaveRotation" instance=ExtResource("4_ibfio")]
+duration = 60.0
+spawn_frequency = 0.5
+enemies = Array[PackedScene]([ExtResource("5_d7d1j")])
+
+[node name="Wave3" parent="WaveRotation" instance=ExtResource("4_ibfio")]
+duration = 60.0
+spawn_frequency = 0.25
 enemies = Array[PackedScene]([ExtResource("5_d7d1j")])
 
 [node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
