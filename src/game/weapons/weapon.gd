@@ -8,7 +8,7 @@ extends Area2D
 
 @export var attack: StatusAttack
 
-@export var description: WeaponDescription
+@export var description: UpgradeDescription
 
 ## Weapon which will replace this in case upgrade is desired.[br]
 ## Will hold null when no upgrade exists.

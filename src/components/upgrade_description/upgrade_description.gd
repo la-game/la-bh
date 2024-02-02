@@ -1,8 +1,8 @@
-## Responsible for holding information about the weapon.
+## Responsible for holding information about the upgrade.
 ##
 ## This data doesn't affect the gameplay,
 ## it only exist to better present information to players.
-class_name WeaponDescription
+class_name UpgradeDescription
 extends Node
 
 

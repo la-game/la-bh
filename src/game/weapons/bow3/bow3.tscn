@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/game/weapons/bow3/bow3.gd" id="1_xbc5i"]
 [ext_resource type="PackedScene" uid="uid://bb3ppamhukbxp" path="res://src/components/status_speed/status_speed.tscn" id="2_cu2dk"]
 [ext_resource type="PackedScene" uid="uid://c0ri4ancwrl1j" path="res://src/components/status_attack/status_attack.tscn" id="3_rgeax"]
-[ext_resource type="PackedScene" uid="uid://bunhcoc5qh3wh" path="res://src/components/weapon_description/weapon_description.tscn" id="4_k6l8y"]
+[ext_resource type="PackedScene" uid="uid://bunhcoc5qh3wh" path="res://src/components/upgrade_description/upgrade_description.tscn" id="4_x8mse"]
 [ext_resource type="Texture2D" uid="uid://dxcis1q4x72ev" path="res://assets/bow2.tres" id="5_uej2r"]
 [ext_resource type="Texture2D" uid="uid://ettk6e82k7fv" path="res://assets/bow.tres" id="6_6d4sv"]
 
@@ -17,14 +17,14 @@ script = ExtResource("1_xbc5i")
 timer = NodePath("Timer")
 speed = NodePath("StatusSpeed")
 attack = NodePath("StatusAttack")
-description = NodePath("WeaponDescription")
+description = NodePath("UpgradeDescription")
 
 [node name="StatusSpeed" parent="." instance=ExtResource("2_cu2dk")]
 
 [node name="StatusAttack" parent="." instance=ExtResource("3_rgeax")]
 value = 0.0
 
-[node name="WeaponDescription" parent="." instance=ExtResource("4_k6l8y")]
+[node name="UpgradeDescription" parent="." instance=ExtResource("4_x8mse")]
 icon = ExtResource("5_uej2r")
 text = "Spawn arrow: 0.5s -> 0.25s
 Spawn arrow angles order: 0º -> 22.5º, 0º, -22.5º"
