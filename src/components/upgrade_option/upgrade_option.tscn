@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/components/upgrade_option/upgrade_option.gd" id="1_wsjrp"]
 [ext_resource type="Texture2D" uid="uid://dxcis1q4x72ev" path="res://assets/bow2.tres" id="2_2vt12"]
 
-[node name="UpgradeOption" type="HBoxContainer" node_paths=PackedStringArray("button", "label")]
+[node name="UpgradeOption" type="HBoxContainer" node_paths=PackedStringArray("button", "rich_text_label")]
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wsjrp")
 button = NodePath("Button")
-label = NodePath("RichTextLabel")
+rich_text_label = NodePath("RichTextLabel")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2

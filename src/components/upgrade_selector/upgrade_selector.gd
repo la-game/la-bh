@@ -5,13 +5,29 @@ extends CanvasLayer
 
 const OPTION_SCENE: PackedScene = preload("res://src/components/upgrade_option/upgrade_option.tscn")
 
+const UPGRADE_ARSENAL: PackedScene = preload("res://src/components/upgrade_option/upgrade_arsenal/upgrade_arsenal.tscn")
+
+const UPGRADE_STATUS: PackedScene = preload("res://src/components/upgrade_option/upgrade_status/upgrade_status.tscn")
+
+const UPGRADE_WEAPON: PackedScene = preload("res://src/components/upgrade_option/upgrade_weapon/upgrade_weapon.tscn")
+
 @export var player: Player
 
 @export var container: Container
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
-var basic_weapons: Array[PackedScene] = Weapons.get_basic_weapons()
+## All weapons which player can learn.
+var arsenal_options: Array[PackedScene] = Weapons.get_basic_weapons()
+
+## This options are reseted every roll.
+var arsenal_current_options: Array[PackedScene] = arsenal_options.duplicate()
+
+## This options are reseted every roll.
+var status_current_options: Array[int] = []
+
+## This options are reseted every roll.
+var weapons_current_options: Array[PackedScene] = []
 
 var points: int = 0:
 	set(p):
@@ -37,15 +53,27 @@ var points: int = 0:
 ## This means removing old and adding new ones.[br][br]
 func refresh() -> void:
 	clear()
-	add_forge_weapon_option()
-	add_learn_weapon_option()
-	add_improve_status_option()
+	refill()
+	add_upgrade_weapon_option()
+	add_upgrade_arsenal_option()
+	add_upgrade_status_option()
 
 
 ## Remove all upgrade options.
 func clear() -> void:
 	for child in container.get_children():
 		child.queue_free()
+
+
+## Refill options for status, weapons and upgrades.
+func refill() -> void:
+	arsenal_current_options = arsenal_options.duplicate()
+	status_current_options = [UpgradeStatus.HEALTH, UpgradeStatus.ATTACK, UpgradeStatus.SPEED]
+	weapons_current_options = []
+	
+	for w: Weapon in player.weapons.get_children():
+		if w.upgrade and not w.is_queued_for_deletion():
+			weapons_current_options.append(w.upgrade)
 
 
 ## Return true if there is any upgrade option available.
@@ -56,85 +84,44 @@ func is_empty() -> bool:
 	return true
 
 
-## Add option to forge a new weapon using previous weapon(s).[br]
-## In case there is no weapon to choose from, it will fall to [method add_learn_weapon_option].
-func add_forge_weapon_option() -> void:
-	var weapons: Array[Weapon] = []
+## Add option to upgrade the arsenal with a new weapon.
+## In case player doesn't have slot for new weapons, it will fall [method add_upgrade_status_option].
+func add_upgrade_arsenal_option() -> void:
+	if arsenal_current_options.is_empty():
+		return add_upgrade_status_option()
 	
-	# We only care about weapons that can be upgraded.
-	for w: Weapon in player.weapons.get_children():
-		if w.upgrade and not w.is_queued_for_deletion():
-			weapons.append(w)
+	var upgrade_arsenal: UpgradeArsenal = UPGRADE_ARSENAL.instantiate()
+	upgrade_arsenal.player = player
+	arsenal_current_options = upgrade_arsenal.random_weapon(arsenal_current_options)
 	
-	if weapons.size() <= 0:
-		return add_learn_weapon_option()
+	upgrade_arsenal.button.pressed.connect(
+		func():
+			points -= 1
+			arsenal_options.erase(upgrade_arsenal.weapon_scene)
+	)
 	
-	var index: int = rng.randi_range(0, weapons.size() - 1)
-	var weapon: Weapon = weapons[index]
-	var upgrade_option: UpgradeOption = OPTION_SCENE.instantiate()
-	
-	upgrade_option.load_weapon_description(weapon.upgrade)
-	upgrade_option.button.pressed.connect(forge_weapon.bind(weapon.upgrade))
-	container.add_child(upgrade_option)
+	container.add_child(upgrade_arsenal)
 
 
-## Add option to learn a new weapon.
-## In case player doesn't have slot for new weapons, it will fall [method add_improve_status_option].
-func add_learn_weapon_option() -> void:
-	if basic_weapons.is_empty():
-		return add_improve_status_option()
+## Add option to upgrade a status.
+func add_upgrade_status_option() -> void:
+	var upgrade_status: UpgradeStatus = UPGRADE_STATUS.instantiate()
+	upgrade_status.player = player
+	status_current_options = upgrade_status.random_status(status_current_options)
 	
-	var index: int = rng.randi_range(0, basic_weapons.size() - 1)
-	var weapon_scene: PackedScene = basic_weapons[index]
-	var upgrade_option: UpgradeOption = OPTION_SCENE.instantiate()
-	
-	upgrade_option.load_weapon_description(weapon_scene)
-	upgrade_option.button.pressed.connect(learn_weapon.bind(weapon_scene))
-	container.add_child(upgrade_option)
-	
+	upgrade_status.button.pressed.connect(func(): points -= 1)
+	container.add_child(upgrade_status)
 
 
-## Add option to improve a status.
-func add_improve_status_option() -> void:
-	var upgrade_option: UpgradeOption = OPTION_SCENE.instantiate()
-	var improve_health = func() -> void: player.health.max_value += 50; points -= 1
-	var improve_attack = func() -> void: player.attack.value += 0.5; points -= 1
-	var improve_speed = func() -> void: player.speed.value += 10; points -= 1
-	var status: int
+## Add option to upgrade a weapon.[br]
+## In case there is no weapon to choose from, it will fall to [method add_upgrade_arsenal_option].
+func add_upgrade_weapon_option() -> void:
+	if weapons_current_options.size() <= 0:
+		return add_upgrade_arsenal_option()
 	
-	# Don't give option to increase speed in this case.
-	if player.speed.value == player.speed.max_value:
-		status = rng.randi_range(0, 1)
-	else:
-		status = rng.randi_range(0, 2)
+	var upgrade_weapon: UpgradeWeapon = UPGRADE_WEAPON.instantiate()
+	upgrade_weapon.player = player
+	weapons_current_options = upgrade_weapon.random_weapon(weapons_current_options)
 	
-	match status:
-		0:
-			upgrade_option.label.text = "Improve maximum health by 50"
-			upgrade_option.button.pressed.connect(improve_health)
-		1:
-			upgrade_option.label.text = "Improve attack by 0.5"
-			upgrade_option.button.pressed.connect(improve_attack)
-		2:
-			upgrade_option.label.text = "Improve speed by 10"
-			upgrade_option.button.pressed.connect(improve_speed)
-	
-	container.add_child(upgrade_option)
-
-
-## Creates a new weapon and remove weapon responsible for forging it.
-func forge_weapon(weapon_scene: PackedScene) -> void:
-	for weapon: Weapon in player.weapons.get_children():
-		if weapon.upgrade == weapon_scene:
-			weapon.queue_free()
-			break
-	
-	player.weapons.add_child(weapon_scene.instantiate(), true)
-	points -= 1
-
-
-## Creates a new weapon.
-func learn_weapon(weapon_scene: PackedScene) -> void:
-	player.weapons.add_child(weapon_scene.instantiate(), true)
-	basic_weapons.erase(weapon_scene)
-	points -= 1
+	upgrade_weapon.button.pressed.connect(func(): points -= 1)
+	container.add_child(upgrade_weapon)

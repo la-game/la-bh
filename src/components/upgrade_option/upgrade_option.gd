@@ -7,10 +7,22 @@ extends HBoxContainer
 
 @export var rich_text_label: RichTextLabel
 
+var player: Player
 
-func load_weapon_description(weapon_scene: PackedScene) -> void:
-		# Instiante a temporary weapon to extract information from it.
-		# NOTE: We need to manually free because it's not inside tree and it's not reference counted.
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+
+
+func _ready() -> void:
+	anchors_preset = PRESET_HCENTER_WIDE
+	
+	rich_text_label.bbcode_enabled = true
+	rich_text_label.fit_content = true
+	rich_text_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+
+## Instiante a temporary weapon to extract information from it.
+## NOTE: We need to manually free because it's not inside tree and it's not reference counted.
+func load_description_from_weapon(weapon_scene: PackedScene) -> void:
 		var weapon: Weapon = weapon_scene.instantiate() as Weapon
 		button.icon = weapon.description.icon
 		rich_text_label.text = weapon.description.text

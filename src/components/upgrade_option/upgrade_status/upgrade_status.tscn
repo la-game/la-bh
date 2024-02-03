@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7idtv2qermv7"]
+
+[ext_resource type="Script" path="res://src/components/upgrade_option/upgrade_status/upgrade_status.gd" id="1_kdb7j"]
+[ext_resource type="Texture2D" uid="uid://dxcis1q4x72ev" path="res://assets/bow2.tres" id="2_2lmi8"]
+
+[node name="UpgradeStatus" type="HBoxContainer" node_paths=PackedStringArray("button", "rich_text_label")]
+offset_right = 71.0
+offset_bottom = 53.0
+script = ExtResource("1_kdb7j")
+button = NodePath("Button")
+rich_text_label = NodePath("RichTextLabel")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+icon = ExtResource("2_2lmi8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
