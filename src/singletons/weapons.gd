@@ -12,5 +12,5 @@ const ARROW: PackedScene = preload("res://src/game/weapons/arrow/arrow.tscn")
 
 func get_basic_weapons() -> Array[PackedScene]:
 	return [
-		 BOW # Removed because it's currently the initial weapon.
+		 #BOW # Removed because it's currently the initial weapon.
 	]
