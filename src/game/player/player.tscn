@@ -72,6 +72,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("StatusHealth:value")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("PlayerReviver:value")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "movement", "aim", "hitbox", "weapons", "reviver", "upgrade_selector")]
 collision_layer = 2

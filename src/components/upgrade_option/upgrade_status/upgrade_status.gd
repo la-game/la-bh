@@ -8,7 +8,7 @@ enum {
 	SPEED,
 }
 
-var health: float = 50
+var health: float = 5
 
 var attack: float = 0.5
 

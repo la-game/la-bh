@@ -39,12 +39,16 @@ func _on_status_health_reached_zero() -> void:
 	weapons.disable_all()
 	
 	reviver.initiate()
+	printt(name, "death")
 
 
 func _on_player_reviver_finished() -> void:
+	# Undo death first.
 	alive = true
 	movement.disabled = false
 	health.immutable = false
-	health.value = clampf(health.max_value * 0.1, 1, health.max_value)
 	hitbox.monitorable = true
 	weapons.enable_all()
+	
+	health.value = clampf(health.max_value * 0.1, 1, health.max_value)
+	printt(name, "revived")

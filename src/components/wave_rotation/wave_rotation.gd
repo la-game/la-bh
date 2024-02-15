@@ -22,12 +22,12 @@ func _ready() -> void:
 
 
 func start_current_wave() -> void:
-	var wave: Wave = get_child(current) as Wave
-	
 	# Rotation ended.
-	if not wave:
-		return rotation_finished.emit()
+	if get_child_count() == current:
+		rotation_finished.emit()
+		return
 	
+	var wave: Wave = get_child(current) as Wave
 	wave_timer.start(wave.duration)
 	spawn_timer.start(wave.spawn_frequency)
 
@@ -38,11 +38,12 @@ func _on_wave_timer_timeout() -> void:
 
 
 func _on_spawn_timer_timeout() -> void:
+	# Rotation ended.
+	if get_child_count() == current:
+		spawn_timer.stop()
+		return
+		
 	var wave: Wave = get_child(current) as Wave
-	
-	if not wave:
-		return spawn_timer.stop()
-	
 	var enemy_scene: PackedScene = wave.random_enemy()
 	
 	if enemy_scene:

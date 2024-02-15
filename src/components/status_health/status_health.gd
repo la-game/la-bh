@@ -19,6 +19,7 @@ signal reached_zero
 @export var value: float:
 	set(v):
 		# Only block if is NOT a synchronization call.
+		# Synchronization calls means that authority is updating this player health.
 		if immutable and multiplayer.get_remote_sender_id() == 0:
 			return
 		

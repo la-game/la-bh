@@ -40,7 +40,14 @@ func _ready() -> void:
 		revive_bar.visible = false
 
 
+## Revive the player but it's only calculated on host.
+## [br][br]
+## Same logic as [member Hitbox.damage],
+## it only happens if the authority see it happening.
 func _process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+	
 	if not monitoring:
 		return
 	
