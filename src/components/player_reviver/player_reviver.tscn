@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://crgs7kok2i34"]
+
+[ext_resource type="Script" path="res://src/components/player_reviver/player_reviver.gd" id="1_h4o8l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6asho"]
+radius = 40.0
+
+[node name="PlayerReviver" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+script = ExtResource("1_h4o8l")
+max_value = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6asho")
+debug_color = Color(0.639216, 0.52549, 0, 0.419608)

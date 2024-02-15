@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://lnatwswf7kfw"]
+[gd_scene load_steps=26 format=3 uid="uid://lnatwswf7kfw"]
 
 [ext_resource type="PackedScene" uid="uid://dpivq7t6c8f87" path="res://src/components/status_health/status_health.tscn" id="1_5l3pl"]
 [ext_resource type="Script" path="res://src/game/player/player.gd" id="1_6ls87"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bgyu827rfph6j" path="res://src/components/hitbox/hitbox.tscn" id="5_gjx5p"]
 [ext_resource type="PackedScene" uid="uid://du80x6s871mn0" path="res://src/components/player_camera/player_camera.tscn" id="6_22abn"]
 [ext_resource type="PackedScene" uid="uid://b7h7q3kt7bofy" path="res://src/components/player_weapons/player_weapons.tscn" id="10_0tyd4"]
+[ext_resource type="PackedScene" uid="uid://crgs7kok2i34" path="res://src/components/player_reviver/player_reviver.tscn" id="10_y43aw"]
 [ext_resource type="PackedScene" uid="uid://do6vnxo23unb4" path="res://src/components/upgrade_selector/upgrade_selector.tscn" id="12_ks4md"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75ms6"]
@@ -45,6 +46,25 @@ gradient = SubResource("Gradient_oshs1")
 width = 48
 height = 8
 
+[sub_resource type="Gradient" id="Gradient_ugftj"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yheoj"]
+gradient = SubResource("Gradient_ugftj")
+width = 48
+height = 8
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_7fq2h"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.577138, 0.447231, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n0dc2"]
+gradient = SubResource("Gradient_7fq2h")
+width = 48
+height = 8
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vxww1"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -53,8 +73,8 @@ properties/1/path = NodePath("StatusHealth:value")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "movement", "aim", "hitbox", "weapons", "upgrade_selector")]
-collision_layer = 0
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "speed", "attack", "movement", "aim", "hitbox", "weapons", "reviver", "upgrade_selector")]
+collision_layer = 2
 script = ExtResource("1_6ls87")
 health = NodePath("StatusHealth")
 speed = NodePath("StatusSpeed")
@@ -63,11 +83,14 @@ movement = NodePath("PlayerMovement")
 aim = NodePath("PlayerAim")
 hitbox = NodePath("Hitbox")
 weapons = NodePath("PlayerWeapons")
+reviver = NodePath("PlayerReviver")
 upgrade_selector = NodePath("UpgradeSelector")
 
 [node name="StatusHealth" parent="." node_paths=PackedStringArray("health_bar", "shield_bar") instance=ExtResource("1_5l3pl")]
 health_bar = NodePath("../HealthBar")
 shield_bar = NodePath("../ShieldBar")
+max_value = 25.0
+value = 25.0
 
 [node name="StatusSpeed" parent="." instance=ExtResource("2_eiwcd")]
 
@@ -94,6 +117,10 @@ health = NodePath("../StatusHealth")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_x7i0n")
 
+[node name="PlayerReviver" parent="." node_paths=PackedStringArray("player", "revive_bar") instance=ExtResource("10_y43aw")]
+player = NodePath("..")
+revive_bar = NodePath("../ReviveBar")
+
 [node name="PlayerWeapons" parent="." node_paths=PackedStringArray("player") instance=ExtResource("10_0tyd4")]
 player = NodePath("..")
 
@@ -117,6 +144,14 @@ offset_right = 24.0
 offset_bottom = -24.0
 texture_progress = SubResource("GradientTexture2D_030v6")
 
+[node name="ReviveBar" type="TextureProgressBar" parent="."]
+offset_left = -24.0
+offset_top = -32.0
+offset_right = 24.0
+offset_bottom = -24.0
+texture_under = SubResource("GradientTexture2D_yheoj")
+texture_progress = SubResource("GradientTexture2D_n0dc2")
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vxww1")
 
@@ -125,3 +160,4 @@ _spawnable_scenes = PackedStringArray("res://src/game/weapons/bow/bow.tscn", "re
 spawn_path = NodePath("../PlayerWeapons")
 
 [connection signal="reached_zero" from="StatusHealth" to="." method="_on_status_health_reached_zero"]
+[connection signal="finished" from="PlayerReviver" to="." method="_on_player_reviver_finished"]

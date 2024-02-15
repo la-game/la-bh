@@ -22,7 +22,7 @@ signal reached_zero
 		if immutable and multiplayer.get_remote_sender_id() == 0:
 			return
 		
-		v = clamp(v, 0, max_value)
+		v = clampf(v, 0, max_value)
 		
 		if health_bar:
 			health_bar.value = v

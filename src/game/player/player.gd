@@ -24,6 +24,8 @@ extends CharacterBody2D
 
 @export var weapons: PlayerWeapons
 
+@export var reviver: PlayerReviver
+
 @export var upgrade_selector: UpgradeSelector
 
 var alive: bool = true
@@ -35,3 +37,14 @@ func _on_status_health_reached_zero() -> void:
 	health.immutable = true
 	hitbox.monitorable = false
 	weapons.disable_all()
+	
+	reviver.initiate()
+
+
+func _on_player_reviver_finished() -> void:
+	alive = true
+	movement.disabled = false
+	health.immutable = false
+	health.value = clampf(health.max_value * 0.1, 1, health.max_value)
+	hitbox.monitorable = true
+	weapons.enable_all()

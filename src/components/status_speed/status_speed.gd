@@ -7,4 +7,4 @@ extends Node
 
 @export var value: float = 250:
 	set(v):
-		value = clamp(v, 0, max_value)
+		value = clampf(v, 0, max_value)
