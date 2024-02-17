@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://uviemxwlbvai"]
 
 [ext_resource type="Script" path="res://src/components/upgrade_option/upgrade_option.gd" id="1_wsjrp"]
-[ext_resource type="Texture2D" uid="uid://dxcis1q4x72ev" path="res://assets/bow2.tres" id="2_2vt12"]
+[ext_resource type="Texture2D" uid="uid://dxcis1q4x72ev" path="res://assets/weapons/bow2.tres" id="2_2vt12"]
 
 [node name="UpgradeOption" type="HBoxContainer" node_paths=PackedStringArray("button", "rich_text_label")]
 anchors_preset = 14

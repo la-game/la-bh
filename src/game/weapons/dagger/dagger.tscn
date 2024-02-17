@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://djri10oco04a3"]
+
+[ext_resource type="Script" path="res://src/game/weapons/dagger/dagger.gd" id="1_posoj"]
+[ext_resource type="Script" path="res://src/components/status_speed/status_speed.gd" id="2_l2t0e"]
+[ext_resource type="Script" path="res://src/components/status_attack/status_attack.gd" id="3_q1dvu"]
+[ext_resource type="Script" path="res://src/components/upgrade_description/upgrade_description.gd" id="4_hylb6"]
+[ext_resource type="Texture2D" uid="uid://rs6xyin28r3o" path="res://assets/weapons/dagger.tres" id="5_136vi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1tdvg"]
+size = Vector2(40, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awp4o"]
+radius = 56.0
+
+[node name="Dagger" type="Area2D" node_paths=PackedStringArray("range", "speed", "attack", "description")]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_posoj")
+range = NodePath("Range")
+speed = NodePath("StatusSpeed")
+attack = NodePath("StatusAttack")
+description = NodePath("UpgradeDescription")
+
+[node name="StatusSpeed" type="Node" parent="."]
+script = ExtResource("2_l2t0e")
+
+[node name="StatusAttack" type="Node" parent="."]
+script = ExtResource("3_q1dvu")
+
+[node name="UpgradeDescription" type="Node" parent="."]
+script = ExtResource("4_hylb6")
+icon = ExtResource("5_136vi")
+text = "Damage: 1
+Attacks per second: 0.2"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(10, 0)
+rotation = 1.5708
+texture = ExtResource("5_136vi")
+offset = Vector2(0, -10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_1tdvg")
+
+[node name="Range" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource("CircleShape2D_awp4o")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

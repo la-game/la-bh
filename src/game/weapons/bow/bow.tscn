@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://1wtwkvoqrufg"]
 
-[ext_resource type="Texture2D" uid="uid://ettk6e82k7fv" path="res://assets/bow.tres" id="1_a4mw6"]
 [ext_resource type="Script" path="res://src/game/weapons/bow/bow.gd" id="1_cvuk1"]
 [ext_resource type="PackedScene" uid="uid://bb3ppamhukbxp" path="res://src/components/status_speed/status_speed.tscn" id="2_hgq4o"]
 [ext_resource type="PackedScene" uid="uid://cbknqids7n8wo" path="res://src/game/weapons/bow2/bow2.tscn" id="2_m6si5"]
 [ext_resource type="PackedScene" uid="uid://c0ri4ancwrl1j" path="res://src/components/status_attack/status_attack.tscn" id="3_5mwys"]
 [ext_resource type="PackedScene" uid="uid://bunhcoc5qh3wh" path="res://src/components/upgrade_description/upgrade_description.tscn" id="5_kdxtw"]
-[ext_resource type="Texture2D" uid="uid://dxcis1q4x72ev" path="res://assets/bow2.tres" id="6_bfco3"]
+[ext_resource type="Texture2D" uid="uid://dxcis1q4x72ev" path="res://assets/weapons/bow2.tres" id="6_7uoxs"]
+[ext_resource type="Texture2D" uid="uid://ettk6e82k7fv" path="res://assets/weapons/bow.tres" id="7_pblkl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uiqp"]
 size = Vector2(20, 60)
@@ -27,12 +27,14 @@ upgrade = ExtResource("2_m6si5")
 value = 0.0
 
 [node name="UpgradeDescription" parent="." instance=ExtResource("5_kdxtw")]
-icon = ExtResource("6_bfco3")
+icon = ExtResource("6_7uoxs")
+text = "Damage: 1
+Attack per second: 1"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(30, 0)
 rotation = 1.57079
-texture = ExtResource("1_a4mw6")
+texture = ExtResource("7_pblkl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(30, 0)

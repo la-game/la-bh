@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cn0kdl3euwvdy"]
 
 [ext_resource type="Script" path="res://src/game/weapons/arrow/arrow.gd" id="1_q5nec"]
-[ext_resource type="Texture2D" uid="uid://78uxo3ido0hv" path="res://assets/arrow.tres" id="2_iqkto"]
 [ext_resource type="PackedScene" uid="uid://c0ri4ancwrl1j" path="res://src/components/status_attack/status_attack.tscn" id="2_psrap"]
 [ext_resource type="PackedScene" uid="uid://bb3ppamhukbxp" path="res://src/components/status_speed/status_speed.tscn" id="3_0lsvn"]
 [ext_resource type="PackedScene" uid="uid://bunhcoc5qh3wh" path="res://src/components/upgrade_description/upgrade_description.tscn" id="4_87rrd"]
+[ext_resource type="Texture2D" uid="uid://78uxo3ido0hv" path="res://assets/weapons/arrow.tres" id="5_v3rvg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nocs6"]
 size = Vector2(40, 10)
@@ -26,7 +26,7 @@ attack = NodePath("StatusAttack")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(20, 0)
 rotation = 1.57079
-texture = ExtResource("2_iqkto")
+texture = ExtResource("5_v3rvg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(20, 0)

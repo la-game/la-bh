@@ -159,7 +159,7 @@ texture_progress = SubResource("GradientTexture2D_n0dc2")
 replication_config = SubResource("SceneReplicationConfig_vxww1")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://src/game/weapons/bow/bow.tscn", "res://src/game/weapons/bow2/bow2.tscn", "res://src/game/weapons/bow3/bow3.tscn")
+_spawnable_scenes = PackedStringArray("res://src/game/weapons/bow/bow.tscn", "res://src/game/weapons/bow2/bow2.tscn", "res://src/game/weapons/bow3/bow3.tscn", "res://src/game/weapons/dagger/dagger.tscn")
 spawn_path = NodePath("../PlayerWeapons")
 
 [connection signal="reached_zero" from="StatusHealth" to="." method="_on_status_health_reached_zero"]
