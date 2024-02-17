@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://do6vnxo23unb4"]
+[gd_scene load_steps=5 format=3 uid="uid://do6vnxo23unb4"]
 
 [ext_resource type="Script" path="res://src/components/upgrade_selector/upgrade_selector.gd" id="1_fek4s"]
-[ext_resource type="PackedScene" uid="uid://uviemxwlbvai" path="res://src/components/upgrade_option/upgrade_option.tscn" id="2_uygee"]
+[ext_resource type="PackedScene" uid="uid://c6jol08qbfggj" path="res://src/components/upgrade_option/upgrade_weapon/upgrade_weapon.tscn" id="2_vtqxa"]
+[ext_resource type="PackedScene" uid="uid://b5jk3lelotjtu" path="res://src/components/upgrade_option/upgrade_arsenal/upgrade_arsenal.tscn" id="3_rbnwh"]
+[ext_resource type="PackedScene" uid="uid://b7idtv2qermv7" path="res://src/components/upgrade_option/upgrade_status/upgrade_status.tscn" id="4_f7ged"]
 
 [node name="UpgradeSelector" type="CanvasLayer" node_paths=PackedStringArray("container")]
 script = ExtResource("1_fek4s")
@@ -29,5 +31,11 @@ offset_bottom = 26.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UpgradeOption" parent="Panel/VBoxContainer" instance=ExtResource("2_uygee")]
+[node name="UpgradeWeapon" parent="Panel/VBoxContainer" instance=ExtResource("2_vtqxa")]
+layout_mode = 2
+
+[node name="UpgradeArsenal" parent="Panel/VBoxContainer" instance=ExtResource("3_rbnwh")]
+layout_mode = 2
+
+[node name="UpgradeStatus" parent="Panel/VBoxContainer" instance=ExtResource("4_f7ged")]
 layout_mode = 2

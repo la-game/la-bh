@@ -29,8 +29,9 @@ value = 0.0
 
 [node name="UpgradeDescription" parent="." instance=ExtResource("5_iwvmu")]
 icon = ExtResource("5_okym0")
-text = "Spawn arrow: 1s -> 0.5s
-Arrows speed: 250 -> 500"
+text = "Arrow spawn: 1s -> 0.5s
+Arrows speed: 250 -> 500
+Arrow duration: 3s -> 1.5s"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(30, 0)

@@ -3,8 +3,6 @@ class_name UpgradeSelector
 extends CanvasLayer
 
 
-const OPTION_SCENE: PackedScene = preload("res://src/components/upgrade_option/upgrade_option.tscn")
-
 const UPGRADE_ARSENAL: PackedScene = preload("res://src/components/upgrade_option/upgrade_arsenal/upgrade_arsenal.tscn")
 
 const UPGRADE_STATUS: PackedScene = preload("res://src/components/upgrade_option/upgrade_status/upgrade_status.tscn")
@@ -29,6 +27,7 @@ var status_current_options: Array[int] = []
 ## This options are reseted every roll.
 var weapons_current_options: Array[PackedScene] = []
 
+## How many points the player has to spend in upgrades.
 var points: int = 0:
 	set(p):
 		p = max(0, p)
@@ -96,8 +95,8 @@ func add_upgrade_arsenal_option() -> void:
 	
 	upgrade_arsenal.button.pressed.connect(
 		func():
-			points -= 1
 			arsenal_options.erase(upgrade_arsenal.weapon_scene)
+			points -= 1 # This triggers other actions, so do it after removing weapon.
 	)
 	
 	container.add_child(upgrade_arsenal)

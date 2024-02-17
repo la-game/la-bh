@@ -28,8 +28,7 @@ value = 0.0
 
 [node name="UpgradeDescription" parent="." instance=ExtResource("5_kdxtw")]
 icon = ExtResource("6_7uoxs")
-text = "Damage: 1
-Attack per second: 1"
+text = "Arrow spawn every second"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(30, 0)

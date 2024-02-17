@@ -4,15 +4,37 @@
 [ext_resource type="Texture2D" uid="uid://dxcis1q4x72ev" path="res://assets/weapons/bow2.tres" id="2_2lmi8"]
 
 [node name="UpgradeStatus" type="HBoxContainer" node_paths=PackedStringArray("button", "rich_text_label")]
-offset_right = 71.0
-offset_bottom = 53.0
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_kdb7j")
 button = NodePath("Button")
-rich_text_label = NodePath("RichTextLabel")
+rich_text_label = NodePath("ScrollContainer/RichTextLabel")
 
 [node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 icon = ExtResource("2_2lmi8")
+icon_alignment = 1
+expand_icon = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Upgrade Status, example:
+Increase health by 5
+Increase speed by 10
+Increase attack by 0.5"

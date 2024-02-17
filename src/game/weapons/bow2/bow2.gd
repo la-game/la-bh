@@ -1,6 +1,8 @@
 extends Weapon
 
 
+const Arrow := preload("res://src/game/weapons/arrow/arrow.gd")
+
 @export var timer: Timer
 
 
@@ -10,11 +12,12 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	var arrow: Weapon = Weapons.ARROW.instantiate() as Weapon
+	var arrow: Arrow = Weapons.ARROW.instantiate() as Arrow
 	arrow.global_rotation = global_rotation
 	arrow.global_position = global_position
 	arrow.speed.value = speed.value
 	arrow.player = player
+	arrow.timer.wait_time /= 2
 	add_child(arrow)
 
 

@@ -9,11 +9,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nocs6"]
 size = Vector2(40, 10)
 
-[node name="Arrow" type="Area2D" node_paths=PackedStringArray("speed", "attack")]
+[node name="Arrow" type="Area2D" node_paths=PackedStringArray("timer", "speed", "attack")]
 top_level = true
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("1_q5nec")
+timer = NodePath("Timer")
 speed = NodePath("StatusSpeed")
 attack = NodePath("StatusAttack")
 

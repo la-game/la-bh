@@ -13,6 +13,7 @@ size = Vector2(40, 16)
 radius = 56.0
 
 [node name="Dagger" type="Area2D" node_paths=PackedStringArray("range", "speed", "attack", "description")]
+show_behind_parent = true
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_posoj")
@@ -30,8 +31,7 @@ script = ExtResource("3_q1dvu")
 [node name="UpgradeDescription" type="Node" parent="."]
 script = ExtResource("4_hylb6")
 icon = ExtResource("5_136vi")
-text = "Damage: 1
-Attacks per second: 0.2"
+text = "Stab closest enemy every 0.2 seconds"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(10, 0)

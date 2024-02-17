@@ -1,6 +1,8 @@
 extends Weapon
 
 
+@export var timer: Timer
+
 var hits_left: int = 1
 
 

@@ -1,6 +1,8 @@
 extends Weapon
 
 
+const Arrow := preload("res://src/game/weapons/arrow/arrow.gd")
+
 @export var timer: Timer
 
 var angle_index: int = 0
@@ -14,12 +16,13 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	var arrow: Weapon = Weapons.ARROW.instantiate() as Weapon
+	var arrow: Arrow = Weapons.ARROW.instantiate() as Arrow
 	var angle: float = angles[angle_index]
 	arrow.global_rotation = global_rotation + angle
 	arrow.global_position = global_position
 	arrow.speed.value = 500
 	arrow.player = player
+	arrow.timer.wait_time /= 2
 	add_child(arrow)
 	
 	angle_index = wrapi(angle_index + 1, 0, angles.size())
