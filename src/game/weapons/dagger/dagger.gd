@@ -7,8 +7,6 @@ var is_attacking: bool = false
 
 var damage_done: bool = false
 
-var tween: Tween
-
 
 func _ready() -> void:
 	visible = false
@@ -31,18 +29,18 @@ func _physics_process(delta: float) -> void:
 			best_direction = global_position.direction_to(hitbox.global_position)
 			best_distance = enemy_distance
 	
-	var final_position = position + best_direction * 20
-	
-	tween = get_tree().create_tween()
-	tween.tween_property(self, "position", final_position, 0.1)
-	tween.tween_property(self, "position", position, 0.1)
-	tween.tween_property(self, "is_attacking", false, 0)
-	tween.tween_property(self, "visible", false, 0)
-	
 	rotation = best_direction.angle()
 	visible = true
 	is_attacking = true
 	damage_done = false
+	
+	# Stab animation.
+	var final_position = position + best_direction * 20
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(self, "position", final_position, 0.1)
+	tween.tween_property(self, "position", position, 0.1)
+	tween.tween_property(self, "is_attacking", false, 0)
+	tween.tween_property(self, "visible", false, 0)
 
 
 func disable() -> void:
@@ -63,3 +61,4 @@ func _on_area_entered(area: Area2D) -> void:
 	(area as Hitbox).damage(attack.value)
 	
 	damage_done = true
+	visible = false

@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://c4rrsxa3l0so7"]
+
+[ext_resource type="Script" path="res://src/game/weapons/dagger2/dagger2.gd" id="1_53ach"]
+[ext_resource type="Script" path="res://src/components/status_speed/status_speed.gd" id="2_0mvqu"]
+[ext_resource type="Script" path="res://src/components/status_attack/status_attack.gd" id="3_sfwjq"]
+[ext_resource type="Script" path="res://src/components/upgrade_description/upgrade_description.gd" id="4_blojv"]
+[ext_resource type="Texture2D" uid="uid://rs6xyin28r3o" path="res://assets/weapons/dagger.tres" id="5_52kqa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1tdvg"]
+size = Vector2(1.74715e-07, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awp4o"]
+radius = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_menrt"]
+size = Vector2(20, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b55up"]
+size = Vector2(20, 40)
+
+[node name="Dagger2" type="Area2D" node_paths=PackedStringArray("dagger1", "dagger2", "range", "speed", "attack", "description")]
+show_behind_parent = true
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_53ach")
+dagger1 = NodePath("Dagger1")
+dagger2 = NodePath("Dagger2")
+range = NodePath("Range")
+speed = NodePath("StatusSpeed")
+attack = NodePath("StatusAttack")
+description = NodePath("UpgradeDescription")
+
+[node name="StatusSpeed" type="Node" parent="."]
+script = ExtResource("2_0mvqu")
+
+[node name="StatusAttack" type="Node" parent="."]
+script = ExtResource("3_sfwjq")
+
+[node name="UpgradeDescription" type="Node" parent="."]
+script = ExtResource("4_blojv")
+icon = ExtResource("5_52kqa")
+text = "Stab closest enemy every 0.2 seconds"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8.7357e-08)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_1tdvg")
+
+[node name="Range" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource("CircleShape2D_awp4o")
+
+[node name="Dagger1" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Dagger1"]
+position = Vector2(0, 10)
+rotation = 3.14159
+texture = ExtResource("5_52kqa")
+offset = Vector2(0, -10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dagger1"]
+position = Vector2(0, 20)
+shape = SubResource("RectangleShape2D_menrt")
+
+[node name="Dagger2" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Dagger2"]
+position = Vector2(0, -10)
+texture = ExtResource("5_52kqa")
+offset = Vector2(0, -10)
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dagger2"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_b55up")
+
+[connection signal="area_entered" from="Dagger1" to="." method="_on_dagger_1_area_entered"]
+[connection signal="area_entered" from="Dagger2" to="." method="_on_dagger_2_area_entered"]
