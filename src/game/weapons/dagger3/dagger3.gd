@@ -13,6 +13,8 @@ var damage_done1: bool = false
 
 var damage_done2: bool = false
 
+var best_direction: Vector2 = Vector2.RIGHT
+
 
 func _ready() -> void:
 	dagger1.visible = false
@@ -21,12 +23,13 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if is_attacking:
+		player.velocity = best_direction * 250
+		player.move_and_slide()
 		return
 	
 	if not attack_range.has_overlapping_areas():
 		return
 	
-	var best_direction: Vector2 = Vector2.RIGHT
 	var best_distance: float = INF
 	
 	for hitbox: Hitbox in attack_range.get_overlapping_areas():
@@ -38,6 +41,7 @@ func _physics_process(_delta: float) -> void:
 	
 	rotation = best_direction.angle()
 	dagger1.visible = true
+	dagger2.visible = true
 	is_attacking = true
 	damage_done1 = false
 	damage_done2 = false
@@ -46,14 +50,18 @@ func _physics_process(_delta: float) -> void:
 	var tween1: Tween = get_tree().create_tween()
 	tween1.tween_property(dagger1, "rotation", -PI/2, 0.1)
 	tween1.tween_property(dagger1, "rotation", 0, 0.1)
-	tween1.tween_property(dagger1, "visible", false, 0.1)
+	tween1.tween_property(dagger1, "visible", false, 0)
 	tween1.tween_property(self, "is_attacking", false, 0)
 	
 	var tween2: Tween = get_tree().create_tween()
-	tween2.tween_property(dagger2, "visible", true, 0.1) # Waits dagger1 finish cut.
 	tween2.tween_property(dagger2, "rotation", PI/2, 0.1)
 	tween2.tween_property(dagger2, "rotation", 0, 0.1)
 	tween2.tween_property(dagger2, "visible", false, 0)
+	
+	var tween3: Tween = get_tree().create_tween()
+	player.movement.disable(name)
+	tween3.tween_interval(0.2)
+	tween3.tween_callback(func(): player.movement.enable(name))
 
 
 func disable() -> void:

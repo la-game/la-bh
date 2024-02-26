@@ -8,7 +8,7 @@ extends Node2D
 func _ready() -> void:
 	# Spawn only your bow and do it later (when MultiplayerSpawner is ready).
 	if is_multiplayer_authority():
-		add_child.call_deferred(Weapons.BOW.instantiate(), true)
+		add_child.call_deferred(Weapons.DAGGER.instantiate(), true)
 
 
 func disable_all() -> void:

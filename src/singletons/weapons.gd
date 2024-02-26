@@ -14,5 +14,5 @@ const DAGGER: PackedScene = preload("res://src/game/weapons/dagger/dagger.tscn")
 func get_basic_weapons() -> Array[PackedScene]:
 	return [
 		#BOW, # Removed because it's currently the initial weapon.
-		DAGGER,
+		#DAGGER,
 	]

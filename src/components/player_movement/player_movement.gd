@@ -7,11 +7,13 @@ extends Node
 
 @export var speed: StatusSpeed
 
-var disabled: bool = false
+## Many places can request to disable player movement, this will record each request.[br]
+## Use [method disable] and [method enable] to update this dictionary.
+var disable_requests: Dictionary = {}
 
 
 func _physics_process(_delta: float) -> void:
-	if disabled:
+	if is_disabled():
 		return
 	
 	if not player:
@@ -29,3 +31,18 @@ func _physics_process(_delta: float) -> void:
 	
 	player.velocity = direction * speed.value
 	player.move_and_slide()
+
+
+func is_disabled() -> bool:
+	for d in disable_requests.values():
+		if d:
+			return true
+	return false
+
+
+func disable(origin: String) -> void:
+	disable_requests[origin] = true
+
+
+func enable(origin: String) -> void:
+	disable_requests.erase(origin) # Free space on dictionary.

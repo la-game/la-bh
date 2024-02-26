@@ -92,8 +92,8 @@ upgrade_selector = NodePath("UpgradeSelector")
 [node name="StatusHealth" parent="." node_paths=PackedStringArray("health_bar", "shield_bar") instance=ExtResource("1_5l3pl")]
 health_bar = NodePath("../HealthBar")
 shield_bar = NodePath("../ShieldBar")
-max_value = 5.0
-value = 5.0
+max_value = 10000.0
+value = 10000.0
 
 [node name="StatusSpeed" parent="." instance=ExtResource("2_eiwcd")]
 
@@ -159,7 +159,7 @@ texture_progress = SubResource("GradientTexture2D_n0dc2")
 replication_config = SubResource("SceneReplicationConfig_vxww1")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://src/game/weapons/bow/bow.tscn", "res://src/game/weapons/bow2/bow2.tscn", "res://src/game/weapons/bow3/bow3.tscn", "res://src/game/weapons/dagger/dagger.tscn")
+_spawnable_scenes = PackedStringArray("res://src/game/weapons/bow/bow.tscn", "res://src/game/weapons/bow2/bow2.tscn", "res://src/game/weapons/bow3/bow3.tscn", "res://src/game/weapons/dagger/dagger.tscn", "res://src/game/weapons/dagger2/dagger2.tscn", "res://src/game/weapons/dagger3/dagger3.tscn")
 spawn_path = NodePath("../PlayerWeapons")
 
 [connection signal="reached_zero" from="StatusHealth" to="." method="_on_status_health_reached_zero"]

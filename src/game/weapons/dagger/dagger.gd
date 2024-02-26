@@ -1,7 +1,7 @@
 extends Weapon
 
 
-@export var range: Area2D
+@export var attack_range: Area2D
 
 var is_attacking: bool = false
 
@@ -12,17 +12,17 @@ func _ready() -> void:
 	visible = false
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_attacking:
 		return
 	
-	if not range.has_overlapping_areas():
+	if not attack_range.has_overlapping_areas():
 		return
 	
 	var best_direction: Vector2 = Vector2.RIGHT
 	var best_distance: float = INF
 	
-	for hitbox: Hitbox in range.get_overlapping_areas():
+	for hitbox: Hitbox in attack_range.get_overlapping_areas():
 		var enemy_distance: float = global_position.distance_to(hitbox.global_position)
 		
 		if enemy_distance < best_distance:
