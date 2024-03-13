@@ -13,3 +13,7 @@ func start_game() -> void:
 func _on_play_pressed() -> void:
 	if is_multiplayer_authority():
 		start_game.rpc()
+
+
+func _on_option_button_item_selected(index: int) -> void:
+	Weapons.initial_weapon = index

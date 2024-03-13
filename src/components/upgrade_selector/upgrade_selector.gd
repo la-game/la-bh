@@ -44,7 +44,20 @@ var points: int = 0:
 		points = p
 
 
-func open() -> void:	
+func _ready() -> void:
+	# Remove initial weapon because the player already have it.
+	if is_multiplayer_authority():
+		arsenal_options.remove_at(Weapons.initial_weapon)
+
+
+## Open upgrade window in case there is points to spend.
+@rpc("any_peer", "call_remote", "reliable")
+func open() -> void:
+	# Host will tell when to open.
+	# Host will not call itself with rpc, so i'm accepting zero too.
+	if multiplayer.get_remote_sender_id() > 1:
+		return
+	
 	if is_empty():
 		hide()
 	else:

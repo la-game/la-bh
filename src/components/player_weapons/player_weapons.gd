@@ -6,9 +6,11 @@ extends Node2D
 
 
 func _ready() -> void:
-	# Spawn only your bow and do it later (when MultiplayerSpawner is ready).
+	# Spawn only your initial weapon and do it later (when MultiplayerSpawner is ready).
 	if is_multiplayer_authority():
-		add_child.call_deferred(Weapons.DAGGER.instantiate(), true)
+		var basic_weapons: Array[PackedScene] = Weapons.get_basic_weapons()
+		var weapon: Weapon = basic_weapons[Weapons.initial_weapon].instantiate() as Weapon
+		add_child.call_deferred(weapon, true)
 
 
 func disable_all() -> void:
