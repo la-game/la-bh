@@ -40,8 +40,8 @@ var immutable: bool = false
 
 func _ready() -> void:
 	if health_bar:
-		health_bar.value = value
 		health_bar.max_value = max_value
+		health_bar.value = value
 
 
 ## Damage health but goes through shields before.
