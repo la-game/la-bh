@@ -4,4 +4,3 @@
 
 [node name="Wave" type="Node"]
 script = ExtResource("1_mw7p2")
-enemies = Array[PackedScene]([null])

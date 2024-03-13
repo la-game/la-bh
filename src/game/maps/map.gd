@@ -66,3 +66,10 @@ func _on_players_experience_bar_level_up() -> void:
 		# Only give point to your player.
 		if player.is_multiplayer_authority():
 			player.upgrade_selector.points += 1
+
+
+func _on_wave_rotation_rest_started() -> void:
+	for player: Player in players.get_children():
+		# Only open upgrades of your player.
+		if player.is_multiplayer_authority():
+			player.upgrade_selector.open()

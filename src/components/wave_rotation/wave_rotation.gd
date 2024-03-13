@@ -7,6 +7,8 @@ extends Node
 
 signal rotation_finished
 
+signal rest_started
+
 signal enemy_created(enemy: Enemy)
 
 @export var wave_timer: Timer
@@ -29,8 +31,11 @@ func start_current_wave() -> void:
 	
 	var wave: Wave = get_child(current) as Wave
 	wave_timer.start(wave.duration)
-	spawn_timer.start(wave.spawn_frequency)
-
+	
+	if wave.enemies:
+		spawn_timer.start(wave.spawn_frequency)
+	else:
+		rest_started.emit()
 
 func _on_wave_timer_timeout() -> void:
 	current += 1

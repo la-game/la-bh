@@ -34,18 +34,21 @@ var points: int = 0:
 		
 		if p == 0:
 			clear()
+			hide()
 		elif p >= 1:
 			# Only refresh if the user spent points,
 			# or if there was no points.
 			if p < points or points == 0:
 				refresh()
 		
-		if is_empty():
-			hide()
-		else:
-			show()
-		
 		points = p
+
+
+func open() -> void:	
+	if is_empty():
+		hide()
+	else:
+		show()
 
 
 ## Refresh the 3 upgrade options.[br]

@@ -105,6 +105,9 @@ wave_rotation = NodePath("../WaveRotation")
 duration = 60.0
 enemies = Array[PackedScene]([ExtResource("5_d7d1j")])
 
+[node name="Rest" parent="WaveRotation" instance=ExtResource("4_ibfio")]
+duration = 30.0
+
 [node name="Wave2" parent="WaveRotation" instance=ExtResource("4_ibfio")]
 duration = 60.0
 spawn_frequency = 0.5
@@ -121,4 +124,5 @@ spawn_path = NodePath("../Enemies")
 
 [connection signal="level_up" from="PlayersExperienceBar" to="." method="_on_players_experience_bar_level_up"]
 [connection signal="enemy_created" from="WaveRotation" to="." method="_on_wave_rotation_enemy_created"]
+[connection signal="rest_started" from="WaveRotation" to="." method="_on_wave_rotation_rest_started"]
 [connection signal="spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_spawned"]
